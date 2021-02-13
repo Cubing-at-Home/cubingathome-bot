@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const PREFIX = process.env.NODE_ENV === 'production' ? require("./config.json").prefix : require("./config.json").devPrefix;
+const PREFIX = process.env.NODE_ENV === 'production' ? require("../config.json").prefix : require("../config.json").devPrefix;
 const error = require("../utils/components/error")
 function execute(message, args) {
     const colors = [

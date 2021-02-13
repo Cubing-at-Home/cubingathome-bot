@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { MessageEmbed } = require("discord.js");
-const prefix = process.env.NODE_ENV === 'production' ? require("./config.json").prefix : require("./config.json").devPrefix;
+const prefix = process.env.NODE_ENV === 'production' ? require("../../config.json").prefix : require("../../config.json").devPrefix;
 
 
 function cahError(message, error) {
