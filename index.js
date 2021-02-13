@@ -6,8 +6,7 @@ const _444 = require("./utils/scr")[444]
 const error = require("./utils/components/error");
 
 require("dotenv").config()
-const TOKEN = process.env.TOKEN;
-console.log(process.env)
+const TOKEN = process.env.NODE_ENV === 'production' ? process.env.TOKEN : process.env.DEV_TOKEN;
 const PREFIX = require("./config.json").prefix;
 
 const client = new Discord.Client();
