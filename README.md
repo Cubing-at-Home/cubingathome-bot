@@ -51,3 +51,8 @@ Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/b
 The code in  [/utils/scrambling](/utils/scrambling) is from [euphwes/pyTwistyScrambler](https://github.com/euphwes/pyTwistyScrambler), modified for this project. The majority of that code is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
 
 The icons in [/utils/icons](/utils/icons) are from [cubing/icons](https://github.com/cubing/icons), converted to png because of how annoying it is to use svgs in Discord.js embeds.
+
+Other resources used include:
+- [World Cube Association API](https://www.worldcubeassociation.org/api/v0), for `wca` command
+- [alg.cubing.net](alg.cubing.net), for `scramble` links
+- [Country Flags API](https://www.countryflags.io/), for the flags used in `wca` command
