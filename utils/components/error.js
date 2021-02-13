@@ -4,9 +4,9 @@ const prefix = require("../../config.json").prefix;
 
 function cahError(message, error) {
     //logging errors
-    fs.appendFile("./logs.txt", `${error} || ${message} || ${message.author.id}\n`, () => {
-        console.log("Error logged")
-    });
+    // fs.appendFile("./logs.txt", `${error} || ${message} || ${message.author.id}\n`, () => {
+    //     console.log("Error logged")
+    // });
 
     const errorEmbed = new MessageEmbed()
         .setColor("#ff0000")
