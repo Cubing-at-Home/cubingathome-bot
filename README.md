@@ -2,7 +2,7 @@
 [![Discord](https://img.shields.io/discord/690084292323311720.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/FWcJFNFMAn)
 
 This is the custom bot created for the Cubing@Home Discord server.
-Add it to your own server [here](https://discord.com/api/oauth2/authorize?client_id=809433538851897404&permissions=387136&scope=bot)
+
 
 ## Commands
 
