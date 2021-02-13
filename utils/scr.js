@@ -11,6 +11,7 @@ const scramble = require("./scrambling/scramble");
 const skewb_scrambler = require("./scrambling/skewb");
 const util_scramble = require("./scrambling/utilscramble");
 const scramble_222 = require("./scrambling/2x2x2");
+const { get3BLDScramble } = require("./scrambling/scramble_333_edit");
 //add fto?
 
 function _222() {

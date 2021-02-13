@@ -14,14 +14,11 @@ client.commands = new Discord.Collection();
 const antiSpam = new AntiSpam(
     {
         warnThreshold: 5,
-        muteThreshold: 10,
         exemptPermissions: ["ADMINISTRATOR","MODERATOR"],
         warnMessage: '{@user}, Please stop spamming, my circuits are sensitive.',
-        muteMessage: '{@user}, I told you to stop spamming, now you\'re in timeout',
         ignoreBots: true,
         removeMessages: true,
         maxInterval: 500,
-        muteRoleName: "muted"
     }
 );
 
@@ -44,7 +41,7 @@ client.on("ready", () => {
 });
 
 client.on("message" , msg => {
-    //antiSpam.message(msg);
+    antiSpam.message(msg);
     //handle invalid senders
     if (!msg.content.startsWith(PREFIX) || msg.author.bot) return;
     
@@ -62,11 +59,11 @@ client.on("message" , msg => {
         command.execute(msg, args);
     } catch (err) {
         console.error(err);
+        fs.appendFile("./logs.txt", `${command.name} called by ${msg.author.id}, error: ${err}\n`);
         error(msg, "An unknown error occurred, if this persists contact <@493205788098035712>");
     }
 });
 
-//antiSpam.on("muteAdd", (member) => console.log(`${member.user.tag} has been muted.`));
-//antiSpam.on("spamThresholdWarn", (member) => console.log(`${member.user.tag} has reached the warn threshold.`));
+antiSpam.on("spamThresholdWarn", (member) => console.log(`${member.user.tag} has reached the warn threshold.`));
 
 client.login(TOKEN);

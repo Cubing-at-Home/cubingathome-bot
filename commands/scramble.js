@@ -14,10 +14,10 @@ function execute(message, args) {
     const scrTypes = [
         ["333","3x3","3x3x3","3","33","oh",'333oh',"3oh","fm","fmc"],
         ["222","2x2","2x2x2","2","22"],
-        ["444","4x4", "4x4x4","4","44"],
+        ["444","4x4", "4x4x4","4","44","4bld","4bf","444bld","444bf","44bld","44bf"],
         ["777","7x7","7x7x7","7","77"],
         ["666","6x6","6x6x6","6","66"],
-        ["555","5x5","5x5x5","5","55"],
+        ["555","5x5","5x5x5","5","55","5bld","5bf","555bld","55bf","55bld"],
         ["sq1","squan", "squareone","square1"],
         ["minx","mega","megaminx"],
         ["pyram", "pyra","pyraminx"],
