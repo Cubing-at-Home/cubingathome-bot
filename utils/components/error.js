@@ -17,8 +17,8 @@ function cahError(message, error) {
     //auto-delete both error and message that caused error after 5 seconds
     message.channel.send(errorEmbed)
         .then(msg => {
-            msg.delete({ timeout: 5000 }).catch(err => console.log("Failed to delete"))
-            message.delete({ timeout: 5000 }).catch(err => console.log("Failed to delete"))
+            msg.delete({ timeout: 3000 }).catch(err => console.log("Failed to delete"))
+            message.delete({ timeout: 3000 }).catch(err => console.log("Failed to delete"))
         })
 }
 module.exports = cahError;
