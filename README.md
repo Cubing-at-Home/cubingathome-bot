@@ -43,11 +43,11 @@ This is the custom bot created for the Cubing@Home Discord server.
 **Gets help command.**
     
 
-## Bug Reporting
-Please open an issue in this repo using `ISSUE_TEMPLATE` and clearly describe the issue.
+## Bug Reporting/Feature Request
+Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md) and clearly describe the issue. To request a new feature, please use [feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md).
 
 ## Acknowledgement
 
-The code in  `/utils/scrambling` is from [euphwes/pyTwistyScrambler](https://github.com/euphwes/pyTwistyScrambler), modified for this project. The majority of that code is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
+The code in  [/utils/scrambling](/utils/scrambling) is from [euphwes/pyTwistyScrambler](https://github.com/euphwes/pyTwistyScrambler), modified for this project. The majority of that code is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
 
-The icons in `/utils/icons` are from [cubing/icons](https://github.com/cubing/icons), converted to png because of how annoying it is to use svgs in Discord.js embeds.
+The icons in [/utils/icons](/utils/icons) are from [cubing/icons](https://github.com/cubing/icons), converted to png because of how annoying it is to use svgs in Discord.js embeds.
