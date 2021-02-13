@@ -7,7 +7,7 @@ const error = require("./utils/components/error");
 
 require("dotenv").config()
 const TOKEN = process.env.NODE_ENV === 'production' ? process.env.TOKEN : process.env.DEV_TOKEN;
-const PREFIX = require("./config.json").prefix;
+const PREFIX = process.env.NODE_ENV === 'production' ? require("./config.json").prefix : require("./config.json").devPrefix;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
