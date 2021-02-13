@@ -21,7 +21,7 @@ function execute(message, args) {
         {name: PREFIX+"server", value: "Gets the number of server members"},
         {name: PREFIX+"help", value: "Returns this message"},
         {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile"},
-        {name: "Details:", value:"[Documentation](https://github.com/louismeunier/cubingathome-bot)"}
+        {name: "Details:", value:"[Documentation](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md"}
     )
 
     message.author.send(helpEmbed);
