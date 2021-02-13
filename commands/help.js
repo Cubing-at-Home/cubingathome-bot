@@ -15,12 +15,13 @@ function execute(message, args) {
     const helpEmbed = new MessageEmbed()
     .setTitle("Commands & Information")
     .setColor(color)
-    .setFooter("cubing@home", "https://cubingathome.com/logo.png")
+    .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
     .addFields(
         {name: PREFIX+"scramble *[event]* *[number of scrambles, max 5]*", value: "Generates random Rubik's cube scrambles"},
         {name: PREFIX+"server", value: "Gets the number of server members"},
         {name: PREFIX+"help", value: "Returns this message"},
-        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile"}
+        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile"},
+        {name: "For more information", value:"[Documentation](https://github.com/louismeunier/cubingathome-bot)"}
     )
 
     message.author.send(helpEmbed);

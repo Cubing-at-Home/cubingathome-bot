@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js")
 
-function cahEmbed(title,fields, footer) {
+function cahEmbed(title,fields) {
     const colors = [
         "#ff0000",
         "#00ff00",
@@ -15,13 +15,10 @@ function cahEmbed(title,fields, footer) {
         //.setAuthor(author.name,author.icon)
         .setColor(color)
         .setTitle(title)
-        .setAuthor("cubing@home","https://cubingathome.com/logo.png")
+        .setFooter("cubing@home","https://cubingathome.com/logo.png")
     fields.forEach(field=>{
         res.addField(field.name,field.value)
     })
-    if (footer) {
-        res.setFooter(footer.name,footer.icon);
-    }
     return res;
 }
 

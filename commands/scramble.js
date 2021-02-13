@@ -1,8 +1,10 @@
+const { MessageAttachment } = require("discord.js");
 const cahEmbed = require("../utils/components/cahEmbed");
+const error = require("../utils/components/error");
 
 const scr = require("../utils/scr");
 
-const error = require("../utils/components/error");
+const icons = require("../utils/icons");
 
 function algCubingURL(event, scramble) {
     const BASE_URL = "https://alg.cubing.net/?type=reconstruction";
@@ -59,7 +61,10 @@ function execute(message, args) {
     if (["333","222","444","3bld",'555',"666","777"].indexOf(scrType[0][0])!==-1) {
         scrambles.forEach(scr => scr.value=`[${scr.value}](${algCubingURL(scrType[0][2],scr.value)})`);
     }
-    message.channel.send(cahEmbed(`${scrQuery} Scrambles`, scrambles));
+    let response = cahEmbed(`${scrQuery} Scrambles`, scrambles);
+    //const icon = new MessageAttachment(`utils/icons/${icons[scrType[0][0]]}`,`${icons[scrType[0][0]] }`)
+    //response.setAuthor("yes",icon.attachment)
+    message.channel.send(response);
 }
 
 
