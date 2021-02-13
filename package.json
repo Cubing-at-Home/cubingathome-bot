@@ -9,6 +9,8 @@
   "author": "louismeunier",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
+    "discord-anti-spam": "^2.5.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
   }

@@ -12,7 +12,7 @@ function algCubingURL(event, scramble) {
 function execute(message, args) {
     //validate args
     const scrTypes = [
-        ["333","3x3","3x3x3","3","33","oh",'333oh',"3oh"],
+        ["333","3x3","3x3x3","3","33","oh",'333oh',"3oh","fm","fmc"],
         ["222","2x2","2x2x2","2","22"],
         ["444","4x4", "4x4x4","4","44"],
         ["777","7x7","7x7x7","7","77"],

@@ -19,7 +19,8 @@ function execute(message, args) {
     .addFields(
         {name: PREFIX+"scramble *[event]* *[number of scrambles, max 5]*", value: "Generates random Rubik's cube scrambles"},
         {name: PREFIX+"server", value: "Gets the number of server members"},
-        {name: PREFIX+"help", value: "Returns this message"}
+        {name: PREFIX+"help", value: "Returns this message"},
+        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile"}
     )
 
     message.author.send(helpEmbed);
