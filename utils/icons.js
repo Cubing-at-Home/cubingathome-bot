@@ -5,7 +5,6 @@ const icons = fs.readdirSync('utils/icons').filter(file => file.endsWith('.png')
 let iconFiles = {};
 icons.forEach(file => {
     iconFiles[file.split(".")[0]] = `${file}`;
-    console.log(file);
 })
 
 module.exports = iconFiles;

@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const PREFIX = require("../config.json").prefix;
-
+const error = require("../utils/components/error")
 function execute(message, args) {
     const colors = [
         "#ff0000",
@@ -21,22 +21,23 @@ function execute(message, args) {
         {name: PREFIX+"server", value: "Gets the number of server members"},
         {name: PREFIX+"help", value: "Returns this message"},
         {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile"},
-        {name: "For more information", value:"[Documentation](https://github.com/louismeunier/cubingathome-bot)"}
+        {name: "Details:", value:"[Documentation](https://github.com/louismeunier/cubingathome-bot)"}
     )
 
     message.author.send(helpEmbed);
 
     message.reply("DM'ed!")
         .then(msg => {
-            message.delete({ timeout: 5000 });
-            msg.delete({ timeout: 5000 })
+            message.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
+            msg.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
         })
-        .catch();
+        .catch(err=>error("Failed to DM", err));
 }
 
 module.exports = {
     name: "help",
     aliases: ["h"],
+    cooldown: 5,
     description: "Returns this message",
     execute
 }

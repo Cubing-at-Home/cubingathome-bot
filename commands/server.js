@@ -3,6 +3,7 @@ const cahEmbed = require("../utils/components/cahEmbed")
 module.exports = {
 	name: 'server', 
 	description: 'Server stats',
+        cooldown:5,
 	execute(message, args) {
         //add roles
         const Embed = cahEmbed("Server Stats", [

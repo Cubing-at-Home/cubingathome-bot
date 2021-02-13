@@ -1,13 +1,13 @@
 {
-  "name": "cubingathome",
+  "name": "cubingathomebot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord bot made for the Cubing at Home server.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node ."
   },
   "author": "louismeunier",
-  "license": "MIT",
+  "license": "GPL",
   "dependencies": {
     "axios": "^0.21.1",
     "discord-anti-spam": "^2.5.0",

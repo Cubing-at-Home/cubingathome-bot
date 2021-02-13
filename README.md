@@ -19,13 +19,15 @@ This is the custom bot created for the Cubing@Home Discord server.
 - **666**, 6x6, 6x6x6, 6, 66
 - **777**, 7x7, 7x7x7, 7, 77
 - **OH**, 333oh, 3oh
-- **FMC**, fm, fmc
+- **333fm**, fm, fmc, 333fmc, 33fm, 33fmc
 - **pyram**, pyra, pyraminx
 - **minx**, mega, megaminx
-- **skewb**, sk, skb
-- **bld**, 3bld, 3bf, bf
+- **skewb**
+- **333bf**, 3bld, 3bf, bf, 33bld, 33bf, 333bld
 - **sq1**, squan, squareone, square1
-- **clock**, clk, clok
+- **clock**
+- **444bf**, 4bld, 4bf, 44bld, 44bf, 444bld
+- **555bf**, 5bld, 5bf, 55bld, 55bf, 5555bld
 
 *$number* (defaults to 1): must be an integer between 1 and 5 (doesn't error out at 5, simply caps it.)
 
@@ -38,7 +40,7 @@ This is the custom bot created for the Cubing@Home Discord server.
 
 
 ### `help`
-**Gets basic command help.**
+**Gets help command.**
     
 
 ## Bug Reporting/ Issue Request
@@ -46,6 +48,6 @@ Please open an issue with detailed information to request an issue or report a b
 
 ## Acknowledgement
 
-The code in  `/utils/scrambling` is from https://github.com/euphwes/pyTwistyScrambler, modified for this project. The majority of that code is from https://github.com/cs0x7f/cstimer. Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
+The code in  `/utils/scrambling` is from [euphwes/pyTwistyScrambler](https://github.com/euphwes/pyTwistyScrambler), modified for this project. The majority of that code is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
 
-The icons in `/utils/icons` are from https://github.com/cubing/icons, converted to png because of how annoying it is to use svgs in Discord.js embeds.
+The icons in `/utils/icons` are from [cubing/icons](https://github.com/cubing/icons), converted to png because of how annoying it is to use svgs in Discord.js embeds.

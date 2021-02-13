@@ -1,17 +1,16 @@
-const scrambler133 = require("./scrambling/1x3x3");
-const scrambler222 = require("./scrambling/2x2x2");
-const scrambler223 = require("./scrambling/2x2x3");
-const cross = require("./scrambling/cross");
+//const scrambler133 = require("./scrambling/1x3x3");
+//const scrambler222 = require("./scrambling/2x2x2");
+//const scrambler223 = require("./scrambling/2x2x3");
+//const cross = require("./scrambling/cross");
 const megaScrambler = require("./scrambling/megascramble");
 const pyra_scrambler = require("./scrambling/pyraminx");
 const scramble_333 = require("./scrambling/scramble_333_edit");
 const scramble_444 = require("./scrambling/scramble_444");
 const sql_scrambler = require("./scrambling/scramble_sq1");
-const scramble = require("./scrambling/scramble");
+//const scramble = require("./scrambling/scramble");
 const skewb_scrambler = require("./scrambling/skewb");
 const util_scramble = require("./scrambling/utilscramble");
 const scramble_222 = require("./scrambling/2x2x2");
-const { get3BLDScramble } = require("./scrambling/scramble_333_edit");
 //add fto?
 
 function _222() {

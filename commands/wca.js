@@ -21,5 +21,6 @@ function execute(message, args) {
 module.exports = {
     name: "wca",
     description: "Get WCA info",
+    cooldown: 5,
     execute
 }
