@@ -1,5 +1,5 @@
-const scr = require("../utils/scr");
 const scramble = require("./scramble");
+
 //can call scramble with any of the aliases from the main command
 let aliases = [];
 scramble.scrTypes.forEach(scr => {
@@ -11,9 +11,8 @@ function execute(message, args) {
 }
 
 module.exports = {
-    name:"3",
+    name: "alt_scramble",
     aliases: aliases,
-    cooldown: 2.5,
     description: "Generates Rubik's Cube scrambles",
     execute
 }
