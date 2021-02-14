@@ -1,13 +1,11 @@
-const fs = require("fs");
 const { MessageEmbed } = require("discord.js");
 const prefix = process.env.NODE_ENV === 'production' ? require("../../config.json").prefix : require("../../config.json").devPrefix;
 
 
 function cahError(message, error) {
-    //logging errors
-    // fs.appendFile("./logs.txt", `${error} || ${message} || ${message.author.id}\n`, () => {
-    //     console.log("Error logged")
-    // });
+    //console error logging
+    console.log("\x1b[41m%s\x1b[0m","Error")
+    console.log("\x1b[33m%s\x1b[0m", `${message.content} || @${message.author.username} (#${message.author.id}) || ${error}`)
 
     const errorEmbed = new MessageEmbed()
         .setColor("#ff0000")
