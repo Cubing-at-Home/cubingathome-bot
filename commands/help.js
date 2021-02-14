@@ -3,6 +3,7 @@ const PREFIX = process.env.NODE_ENV === 'production' ? require("../config.json")
 const error = require("../utils/components/error")
 function execute(message, args) {
     const colors = [
+        "#FFFFFD",
         "#ff0000",
         "#00ff00",
         "#ffa500",

@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 function cahEmbed(title,fields) {
     const colors = [
+        "#FFFFFD",
         "#ff0000",
         "#00ff00",
         "#ffa500",
