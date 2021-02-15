@@ -42,6 +42,25 @@ client.on("ready", () => {
     )
 });
 
+client.on("guildCreate", guild => {
+    console.log("Joined a new guild: " + guild.name);
+    client.user.setActivity(
+        `${PREFIX} on ${client.guilds.cache.size} servers`, {
+            type:"LISTENING"
+        }
+    )
+})
+
+//removed from a server
+client.on("guildDelete", guild => {
+    console.log("Left a guild: " + guild.name);
+    client.user.setActivity(
+        `${PREFIX} on ${client.guilds.cache.size} servers`, {
+            type:"LISTENING"
+        }
+    )
+})
+
 client.on("message" , msg => {
     //antiSpam.message(msg);
     //handle invalid senders
