@@ -2,7 +2,6 @@ const fs = require("fs");
 const Discord = require("discord.js");
 //const AntiSpam = require('discord-anti-spam');
 const _444 = require("./utils/scr")[444]
-
 const error = require("./utils/components/error");
 
 require("dotenv").config()
@@ -36,10 +35,8 @@ for (const file of commandFiles) {
 //on
 client.on("ready", () => {
     console.log("Logged in as " + client.user.tag);
-    //call initial 444 solve because it speeds it up later
-    console.log(_444());
     client.user.setActivity(
-        PREFIX, {
+        `${PREFIX} on ${client.guilds.cache.size} servers`, {
             type:"LISTENING"
         }
     )
@@ -48,7 +45,7 @@ client.on("ready", () => {
 client.on("message" , msg => {
     //antiSpam.message(msg);
     //handle invalid senders
-    if (!msg.content.startsWith(PREFIX) || msg.author.bot) return;
+    if (!msg.content.toLowerCase().startsWith(PREFIX) || msg.author.bot) return;
     
     //get args+command
     const args = msg.content.slice(PREFIX.length).trim().split(/ +/);
