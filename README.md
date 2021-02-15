@@ -28,6 +28,7 @@ This is the custom bot created for the Cubing@Home Discord server.
 - **clock**
 - **444bf**, 4bld, 4bf, 44bld, 44bf, 444bld
 - **555bf**, 5bld, 5bf, 55bld, 55bf, 5555bld
+- *(3x3 subsets)*: **zbll, cll, edge, corner, eoline, f2l, ll, lse, lsll, zbls, zzll, ell, cmll**
 
 *$number* (defaults to 1): must be an integer between 1 and 5 (doesn't error out at 5, simply caps it.)
 
