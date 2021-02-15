@@ -1406,7 +1406,7 @@ var scramble_333 = (function(getNPerm, get8Perm, setNPerm, set8Perm, getNParity,
 		getELLScramble: getELLScramble,
 		getAnyScramble: getAnyScramble,
 		getEasyCrossScramble: getEasyCrossScramble,
-
+		getPLLScramble:getPLLScramble,
 		getEOLineScramble: getEOLineScramble,
 		getZBLSScramble: getZBLSScramble,
 

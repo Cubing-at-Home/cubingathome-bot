@@ -40,7 +40,8 @@ const scrTypes = [
     {imageCode: "333", scrCode: "zbls", aliases:["zbls"],displayCode:"ZBLS", algCubingCode:"3x3x3"},
     {imageCode: "333", scrCode: "zzll", aliases:["zzll"],displayCode:"ZZLL", algCubingCode:"3x3x3"},
     {imageCode: "333", scrCode: "ell", aliases:["ell"],displayCode:"ELL", algCubingCode:"3x3x3"},
-    {imageCode: "333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"}
+    {imageCode: "333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"}
 ]
 
 function execute(message, args) {
