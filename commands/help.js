@@ -27,14 +27,20 @@ function execute(message, args) {
         {name: "Found a bug? Report below, or DM **@LOUIS**", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
     )
 
-    message.author.send(helpEmbed);
-
-    message.reply("DM'ed!")
-        .then(msg => {
-            message.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
-            msg.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
+    message.author.send(helpEmbed)
+        .then(
+            _ => {
+                message.reply("DM'ed!")
+                    .then(msg => {
+                        message.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
+                        msg.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
+                    })
+            }
+        )
+        .catch(err => {
+            error(message, "Failed to DM you, please turn on your DM's from server mutuals!")
         })
-        .catch(err=>error("Failed to DM", err));
+    
 }
 
 module.exports = {
