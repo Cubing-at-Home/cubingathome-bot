@@ -26,6 +26,7 @@ This is the custom bot created for the Cubing@Home Discord server.
 - **333bf**, 3bld, 3bf, bf, 33bld, 33bf, 333bld
 - **sq1**, squan, squareone, square1
 - **clock**
+- **333mbf**, mbld, 333mbld, 3x3mbld, 33mbld *(note: default is 3, max is 25)*
 - **444bf**, 4bld, 4bf, 44bld, 44bf, 444bld
 - **555bf**, 5bld, 5bf, 55bld, 55bf, 5555bld
 - *(3x3 subsets)*: **zbll, cll, edge, corner, eoline, f2l, ll, lse, lsll, zbls, zzll, ell, cmll, pll**

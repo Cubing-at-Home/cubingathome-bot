@@ -20,7 +20,7 @@ const scrTypes = [
     {imageCode:"555",scrCode:"555",aliases:["5","55","555","5x5","5x5x5"], algCubingCode:"5x5x5",displayCode:"5x5"},
     {imageCode:"666",scrCode:"666",aliases:["6","66","666","6x6","6x6x6"], algCubingCode:"6x6x6",displayCode:"6x6"},
     {imageCode:"777",scrCode:"777",aliases:["7","77","777","7x7","7x7x7"], algCubingCode:"7x7x7",displayCode:"7x7"},
-    {imageCode:"333bf",scrCode:"333", aliases:['"3bld',"3bf","333bf","333bld","33bld","33bf"], algCubingCode:"3x3x3",displayCode:"3x3 BLD"},
+    {imageCode:"333bf",scrCode:"bld", aliases:['3bld',"3bf","333bf","333bld","33bld","33bf","bld"], algCubingCode:"3x3x3",displayCode:"3x3 BLD"},
     {imageCode:"444bf",scrCode:"444", aliases:['"4bld',"4bf","444bf","444bld","44bld","44bf"], algCubingCode:"4x4x4", displayCode:"4x4 BLD"},
     {imageCode:"555bf",scrCode:"555", aliases:['"5bld',"5bf","555bf","555bld","55bld","55bf"], algCubingCode:"5x5x5", displayCode: "5x5 BLD"},
     {imageCode: "sq1",scrCode:"sq1",aliases:["squan","squareone","square1","sq1","sq"],displayCode:"squareOne"},
@@ -41,7 +41,8 @@ const scrTypes = [
     {imageCode: "333", scrCode: "zzll", aliases:["zzll"],displayCode:"ZZLL", algCubingCode:"3x3x3"},
     {imageCode: "333", scrCode: "ell", aliases:["ell"],displayCode:"ELL", algCubingCode:"3x3x3"},
     {imageCode: "333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"},
-    {imageCode: "333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"}
+    {imageCode: "333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"},
+    {imageCode: "333mbf", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"}
 ]
 
 function execute(message, args) {
@@ -53,17 +54,19 @@ function execute(message, args) {
         return;
     }
 
+    
     const scrQuery = args[0].toLowerCase();
-    let scrNum = args[1] || 1;
+    const scrType = scrTypes.filter(scrType => scrType.aliases.indexOf(scrQuery)!==-1)[0];
+
+    let scrNum = scrType.imageCode==="333mbf" ? args[1] || 3 : args[1] || 1;
 
     if (isNaN(scrNum)) {
         error(message, "Number of scrambles must be an integer!");
         return;
     }
 
-    if (scrNum>5) scrNum = 5;
+    if (scrNum > 5 && scrType.imageCode!="333mbf") scrNum = 5;
 
-    const scrType = scrTypes.filter(scrType => scrType.aliases.indexOf(scrQuery)!==-1)[0];
 
     if (!scrType) {
         //handle invalid scramble query

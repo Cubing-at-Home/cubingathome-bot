@@ -92,5 +92,6 @@ module.exports = {
     zzll:scramble_333.getZZLLScramble,
     ell:scramble_333.getELLScramble,
     cmll:scramble_333.getCMLLScramble,
-    pll: scramble_333.getPLLScramble
+    pll: scramble_333.getPLLScramble,
+    bld: scramble_333.get3BLDScramble
 }
