@@ -28,7 +28,7 @@ This is the custom bot created for the Cubing@Home Discord server.
 - **clock**
 - **444bf**, 4bld, 4bf, 44bld, 44bf, 444bld
 - **555bf**, 5bld, 5bf, 55bld, 55bf, 5555bld
-- *(3x3 subsets)*: **zbll, cll, edge, corner, eoline, f2l, ll, lse, lsll, zbls, zzll, ell, cmll**
+- *(3x3 subsets)*: **zbll, cll, edge, corner, eoline, f2l, ll, lse, lsll, zbls, zzll, ell, cmll, pll**
 
 *$number* (defaults to 1): must be an integer between 1 and 5 (doesn't error out at 5, simply caps it.)
 
@@ -44,6 +44,23 @@ This is the custom bot created for the Cubing@Home Discord server.
 **Gets help command.**
     
 
+## To Do
+### In-Progress
+- Scramble previews in Discord (in addition to alg.cubing.net)
+- Solver, for any scramble AND previously called scramble on react (necessary?)
+- Expand scramble types
+    - ~~3x3 subsets~~
+    - Better MBLD support
+    - More?
+- Make embed prettier
+
+### Maybe?
+- Better logo
+- Head-to-head comparison
+- Competition feature (eh)
+- OAuth w/ WCA account?? (probably possible but would have to change hosting to have storage)
+- Alg search with algdb.net
+- Discord solves using three.js/canvas??? (I think this would be very cool but hard to implement)
 ## Bug Reporting/Feature Request
 Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md) and clearly describe the issue. To request a new feature, please use [feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md).
 
