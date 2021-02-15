@@ -1,7 +1,7 @@
 //const scrambler133 = require("./scrambling/1x3x3");
 //const scrambler222 = require("./scrambling/2x2x2");
 //const scrambler223 = require("./scrambling/2x2x3");
-//const cross = require("./scrambling/cross");
+const cross = require("./scrambling/cross");
 const megaScrambler = require("./scrambling/megascramble");
 const pyra_scrambler = require("./scrambling/pyraminx");
 const scramble_333 = require("./scrambling/scramble_333_edit");
@@ -78,5 +78,18 @@ module.exports = {
     sq1: _squareOne,
     pyram: _pyraminx,
     minx: _megaminx,
-    fmc: _fmc
+    fmc: _fmc,
+    zbll: scramble_333.getZBLLScramble,
+    cll: scramble_333.getCLLScramble,
+    edge: scramble_333.getEdgeScramble,
+    corner: scramble_333.getCornerScramble,
+    eoline: scramble_333.getEOLineScramble,
+    f2l: scramble_333.getF2LScramble,
+    ll:scramble_333.getLLScramble,
+    lse:scramble_333.getLSEScramble,
+    lsll:scramble_333.getLSLLScramble,
+    zbls:scramble_333.getZBLSScramble,
+    zzll:scramble_333.getZZLLScramble,
+    ell:scramble_333.getELLScramble,
+    cmll:scramble_333.getCMLLScramble
 }

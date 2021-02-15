@@ -27,7 +27,20 @@ const scrTypes = [
     {imageCode:"minx",scrCode:"minx",aliases:["minx","mega","megaminx"],displayCode:"Megaminx"},
     {imageCode:"pyram",scrCode:"pyram",aliases:["pyraminx","pyram","pyra","p"],displayCode:'Pyraminx'},
     {imageCode: "clock",scrCode:"clock",aliases:["clock","c"],displayCode:"Clock"},
-    {imageCode:"skewb",scrCode:"skewb",aliases:["skewb"],displayCode:"Skewb"}
+    {imageCode:"skewb",scrCode:"skewb",aliases:["skewb"],displayCode:"Skewb"},
+    {imageCode: "333", scrCode: "lsll", aliases:["lsll"],displayCode:"LSLL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "zbll", aliases:["zbll"],displayCode:"ZBLL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "cll", aliases:["cll","coll"],displayCode:"COLL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "edge", aliases:["edge"],displayCode:"Edges", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "corner", aliases:["corner"],displayCode:"Corners", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "eoline", aliases:["eoline"],displayCode:"EOLine", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "f2l", aliases:["f2l","cross"],displayCode:"Cross (hold desired face bottom)", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "ll", aliases:["ll"],displayCode:"LL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "lse", aliases:["lse"],displayCode:"LSE", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "zbls", aliases:["zbls"],displayCode:"ZBLS", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "zzll", aliases:["zzll"],displayCode:"ZZLL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "ell", aliases:["ell"],displayCode:"ELL", algCubingCode:"3x3x3"},
+    {imageCode: "333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"}
 ]
 
 function execute(message, args) {
