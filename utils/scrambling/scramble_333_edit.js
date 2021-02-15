@@ -1367,7 +1367,24 @@ var scramble_333 = (function(getNPerm, get8Perm, setNPerm, set8Perm, getNParity,
 		var cases = cross.getEasyCross(length);
 		return getAnyScramble(cases[0], cases[1], 0xff, 0xff);
 	}
-
+	function getFMCScramble() {
+		var scramble = "",
+			axis1, axis2, axisl1, axisl2;
+		do {
+			scramble = getRandomScramble();
+			var moveseq = scramble.split(' ');
+			if (moveseq.length < 3) {
+				continue;
+			}
+			axis1 = moveseq[0][0];
+			axis2 = moveseq[1][0];
+			axisl1 = moveseq[moveseq.length - 2][0];
+			axisl2 = moveseq[moveseq.length - 3][0];
+		} while (
+			axis1 == 'F' || axis1 == 'B' && axis2 == 'F' ||
+			axisl1 == 'R' || axisl1 == 'L' && axisl2 == 'R');
+		return "R' U' F " + scramble + "R' U' F";
+	}
 	scramble.reg('333', getRandomScramble);
 
 	return {
@@ -1375,6 +1392,7 @@ var scramble_333 = (function(getNPerm, get8Perm, setNPerm, set8Perm, getNParity,
 		getRandomScramble: getRandomScramble, //getRandomScramble,
 
 		/* added methods */
+		getFMCScramble: getFMCScramble,
 		getEdgeScramble: getEdgeScramble,
 		getCornerScramble: getCornerScramble,
 		getLLScramble: getLLScramble,

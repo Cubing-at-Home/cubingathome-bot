@@ -7,7 +7,7 @@ const pyra_scrambler = require("./scrambling/pyraminx");
 const scramble_333 = require("./scrambling/scramble_333_edit");
 const scramble_444 = require("./scrambling/scramble_444");
 const sql_scrambler = require("./scrambling/scramble_sq1");
-//const scramble = require("./scrambling/scramble");
+const scramble = require("./scrambling/scramble");
 const skewb_scrambler = require("./scrambling/skewb");
 const util_scramble = require("./scrambling/utilscramble");
 const scramble_222 = require("./scrambling/2x2x2");
@@ -61,6 +61,10 @@ function _squareOne() {
     return sql_scrambler.getRandomScramble();
 }
 
+function _fmc() {
+    return scramble_333.getFMCScramble();
+}
+
 module.exports = {
     333: _333,
     222: _222,
@@ -73,5 +77,6 @@ module.exports = {
     clock: _clock,
     sq1: _squareOne,
     pyram: _pyraminx,
-    minx: _megaminx
+    minx: _megaminx,
+    fmc: _fmc
 }

@@ -12,7 +12,7 @@ function algCubingURL(event, scramble) {
 }
 
 const scrTypes = [
-    {imageCode:"333fm", scrCode: "333",aliases:["333fmc","fm","fmc","3fmc"],algCubingCode:"3x3x3",displayCode:"FMC"},
+    {imageCode:"333fm", scrCode: "fmc",aliases:["333fmc","fm","fmc","3fmc"],algCubingCode:"3x3x3",displayCode:"FMC"},
     {imageCode:"333", scrCode: "333", aliases:["333","3x3","3x3x3","3","33"], algCubingCode:"3x3x3",displayCode:"3x3"},
     {imageCode:"333oh", scrCode: "333", aliases:["333oh","oh","3oh"], algCubingCode:"3x3x3",displayCode:"OH"},
     {imageCode:"222",scrCode:"222",aliases:["2","22","2x2","2x2x2","222"], algCubingCode:"2x2x2",displayCode:"2x2"},
@@ -61,7 +61,8 @@ function execute(message, args) {
 
     const scrambles = [];
     for (var i=0;i<scrNum;i++) {
-        scrambles.push({name: i+1, value: scrambleFunc()});
+        let val = scrambleFunc();
+        scrambles.push({name: i+1, value: val});
     }
     //this is terrible code but you know it works
     if (scrType.algCubingCode) {
@@ -72,7 +73,7 @@ function execute(message, args) {
     const icon = new MessageAttachment(`utils/icons/${icons[scrType.imageCode]}`,`${icons[scrType.imageCode]}`)
     response.attachFiles(icon)
     response.setThumbnail(`attachment://${icons[scrType.imageCode]}`)
-    message.channel.send(response);
+    message.channel.send(response)
 }
 
 
