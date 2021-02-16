@@ -18,11 +18,11 @@ function execute(message, args) {
     .setColor(color)
     .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
     .addFields(
-        {name: PREFIX+"scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, cool-down: 2.5s"},
+        {name: PREFIX+"scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, AND pictures of the scrambles (available for 30 seconds), cool-down: **2.5s**"},
         {name: PREFIX+"*[event]* *[num scrambles]*", value: "Same command as above but shorter!"},
-        {name: PREFIX+"server", value: "Gets the number of server members, cool-down: 5s"},
-        {name: PREFIX+"help", value: "Returns this message, cool-down: 5s"},
-        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile, cool-down: 5s"},
+        {name: PREFIX+"server", value: "Gets the number of server members, cool-down: **5s**"},
+        {name: PREFIX+"help", value: "Returns this message, cool-down: **5s**"},
+        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile, cool-down: **5s**"},
         {name: PREFIX+"invite", value: "Invite BottingAtHome to your own server!"},
         {name: "Found a bug? Report below, or DM **@LOUIS**", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
     )

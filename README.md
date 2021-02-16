@@ -1,14 +1,14 @@
 # Cubing At Home Discord Bot
 [![Discord](https://img.shields.io/discord/690084292323311720.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/FWcJFNFMAn)
 
-This is the custom bot created for the Cubing@Home Discord server.
+This is the custom bot originally created for the Cubing@Home Discord server, but constantly expanding with more cubing-related features.
 
 
 ## Commands
 
 ### `scramble` *$event* *$number*
 
-**Returns a set number of randomly generated scrambles.**
+**Returns a set number of randomly generated scrambles, AND scramble previews available for 30 seconds after being called**
 
 
 *$event* (**NOT** case sensitive):
@@ -54,6 +54,7 @@ This is the custom bot created for the Cubing@Home Discord server.
     - Better MBLD support
     - More?
 - Make embed prettier
+- Add `log` command to get the newest updates (Github api?)
 
 ### Maybe?
 - Better logo
@@ -68,6 +69,8 @@ Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/b
 ## Acknowledgement
 
 The code in  [/utils/scrambling](/utils/scrambling) is from [euphwes/pyTwistyScrambler](https://github.com/euphwes/pyTwistyScrambler), modified for this project. The majority of that code is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). Each of those projects also borrow a lot of code from others, and are usually linked in the files themselves.
+
+The logic in [/utils/visualizer](/utils/visualizer) is also from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer), specifically the `Draw Scramble` tool function. However, it is **heavily** edited so that it works with `canvas-node` rather than the intended web canvas. It can also be used stand-alone as a way to generate scrambles for almost any event using Node JS. The main function in `image.js` returns an image buffer, but can be modified to return a png, canvas object, etc..
 
 The icons in [/utils/icons](/utils/icons) are from [cubing/icons](https://github.com/cubing/icons), converted to png because of how annoying it is to use svgs in Discord.js embeds.
 

@@ -17,9 +17,12 @@ function cahEmbed(title,fields) {
         .setColor(color)
         .setTitle(title)
         .setFooter("cubing@home","https://cubingathome.com/logo.png")
-    fields.forEach(field=>{
-        res.addField(field.name,field.value)
-    })
+    if (fields) {
+        fields.forEach(field=>{
+            res.addField(field.name,field.value)
+        })
+    }
+   
     return res;
 }
 
