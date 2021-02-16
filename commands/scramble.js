@@ -108,8 +108,8 @@ function execute(message, args) {
             const ScrambleEmbed = (number, attachment) => {
                 var res = new MessageEmbed()
                 res.setFooter(`Scramble ${number}`)
-                res.attachFiles(attachment)
-                res.setImage(`attachment://${attachment.name}`)
+                res.attachFiles([{name:"scramble.png", attachment: attachment}])
+                res.setImage(`attachment://scramble.png`)
                 //res.setColor()
                 return res;
             }
@@ -139,7 +139,7 @@ function execute(message, args) {
                         .then(_ => {
                             //wait a bit after deleting to send new scramble to avoid flickering on screen
                             setTimeout(() => {
-                                message.channel.send(ScrambleEmbed(scrambleImageNumber+1,new MessageAttachment(scrBuffer)))
+                                message.channel.send(ScrambleEmbed(scrambleImageNumber+1, scrBuffer))
                                 .then(msg => {
                                     previousMessage = msg
                                 })
@@ -147,7 +147,7 @@ function execute(message, args) {
                         })
                 } else  {
                     //no previousMessage to delete so we can continue
-                    message.channel.send(ScrambleEmbed(scrambleImageNumber+1, new MessageAttachment(scrBuffer)))
+                    message.channel.send(ScrambleEmbed(scrambleImageNumber+1, scrBuffer))
                         .then(msg => previousMessage = msg)
                 }
             })
