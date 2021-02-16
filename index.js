@@ -4,6 +4,8 @@ const Discord = require("discord.js");
 const _444 = require("./utils/scr")[444]
 const error = require("./utils/components/error");
 
+const guildConnect = require("./db/connections/guild");
+
 require("dotenv").config()
 const TOKEN = process.env.NODE_ENV === 'production' ? process.env.TOKEN : process.env.DEV_TOKEN;
 const PREFIX = process.env.NODE_ENV === 'production' ? require("./config.json").prefix : require("./config.json").devPrefix;
@@ -44,6 +46,7 @@ client.on("ready", () => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.name);
+    guildConnect();
     client.user.setActivity(
         `${PREFIX} on ${client.guilds.cache.size} servers`, {
             type:"LISTENING"
