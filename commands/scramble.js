@@ -59,6 +59,11 @@ function execute(message, args) {
     const scrQuery = args[0].toLowerCase();
     const scrType = scrTypes.filter(scrType => scrType.aliases.indexOf(scrQuery)!==-1)[0];
 
+    if (!scrType) {
+        error(message, "Invalid scramble type!");
+        return;
+    };
+
     let scrNum = scrType.imageCode==="333mbf" ? args[1] || 3 : args[1] || 1;
 
     if (isNaN(scrNum)) {
