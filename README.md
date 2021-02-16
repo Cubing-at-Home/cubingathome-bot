@@ -47,13 +47,7 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 
 ## To Do
 ### In-Progress
-- Scramble previews in Discord (in addition to alg.cubing.net)
 - Solver, for any scramble AND previously called scramble on react (necessary?)
-- Expand scramble types
-    - ~~3x3 subsets~~
-    - Better MBLD support
-    - More?
-- Make embed prettier
 - Add `log` command to get the newest updates (Github api?)
 
 ### Maybe?
