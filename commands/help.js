@@ -24,6 +24,7 @@ function execute(message, args) {
         {name: PREFIX+"help", value: "Returns this message, cool-down: **5s**"},
         {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile, cool-down: **5s**"},
         {name: PREFIX+"invite", value: "Invite BottingAtHome to your own server!"},
+        {name: PREFIX+"changes", value: "View recent updates to BottingAtHome"},
         {name: "Found a bug? Report below, or DM **@LOUIS**", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
     )
 

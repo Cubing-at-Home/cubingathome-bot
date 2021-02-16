@@ -44,7 +44,11 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 ### `help`
 **Gets help command.**
     
+### `invite`
+**Invite to your own server**
 
+### `changes`
+**View recent updates to the bot**
 ## To Do
 ### In-Progress
 - Solver, for any scramble AND previously called scramble on react (necessary?)
