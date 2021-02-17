@@ -6,7 +6,7 @@ function execute(message, args) {
             if (response==="set") {
                 message.channel.send("🍔");
             } else {
-                message.channel.send(`Burger was already called recently, and can be called again ${new Date(parseInt(response)-new Date().getMilliseconds()).getHours()}`)
+                message.channel.send(`Burger was already called recently, and can be called again in ${Math.round(((parseInt(response)-new Date().getTime())/(1000*60*60))*100)/100} hours. Good luck!`)
             }
         })
         .catch(err => {
@@ -17,6 +17,6 @@ function execute(message, args) {
 module.exports = {
     name: "burger",
     description: "burger",
-    cooldown: 30,
+    cooldown: 10,
     execute
 }

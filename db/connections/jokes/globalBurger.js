@@ -6,10 +6,11 @@ async function burger() {
         const client = await pool.connect();
         const getBurger = await client.query(`SELECT date FROM burger;`)
         console.log(getBurger.rows);
-        if (!getBurger.rows[0] || parseInt(getBurger.rows[0].date)<new Date().getMilliseconds()) {
-            await client.query(`UPDATE burger SET date='${new Date().getMilliseconds()+(1000*60*60*24)}'`)
+        if (getBurger.rows.length===0 || parseInt(getBurger.rows[0].date)<new Date().getTime()) {
+            await client.query(`UPDATE burger SET date='${new Date().getTime()+(1000*60*60*12)}'`)
             return "set";
         } else {
+            console.log(getBurger.rows[0].date);
             return getBurger.rows[0].date;
         }
     } catch(err) {
