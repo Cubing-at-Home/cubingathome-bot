@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const PREFIX = process.env.NODE_ENV === 'production' ? require("../config.json").prefix : require("../config.json").devPrefix;
+//const PREFIX = process.env.NODE_ENV === 'production' ? require("../config.json").prefix : require("../config.json").devPrefix;
 const error = require("../utils/components/error")
 function execute(message, args) {
     const colors = [
@@ -18,14 +18,16 @@ function execute(message, args) {
     .setColor(color)
     .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
     .addFields(
-        {name: PREFIX+"scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, AND pictures of the scrambles (available for 30 seconds), cool-down: **2.5s**"},
-        {name: PREFIX+"*[event]* *[num scrambles]*", value: "Same command as above but shorter!"},
-        {name: PREFIX+"server", value: "Gets the number of server members, cool-down: **5s**"},
-        {name: PREFIX+"help", value: "Returns this message, cool-down: **5s**"},
-        {name: PREFIX +"wca *[WCA ID]*", value:"Get a person's WCA profile, cool-down: **5s**"},
-        {name: PREFIX+"invite", value: "Invite BottingAtHome to your own server!"},
-        {name: PREFIX+"changes", value: "View recent updates to BottingAtHome"},
-        {name: "Found a bug? Report below, or DM **@LOUIS**", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
+        {name: "scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, AND pictures of the scrambles (available for 30 seconds)"},
+        {name: "*[event]* *[num scrambles]*", value: "Same command as above but shorter!"},
+        {name:"server", value: "Gets the number of server members"},
+        {name: "help", value: "Returns this message"},
+        {name:  "wca *[WCA ID]*", value:"Get a person's WCA profile"},
+        {name: "invite", value: "Invite BottingAtHome to your own server!"},
+        {name: "changes", value: "View recent updates to BottingAtHome"},
+        {name: "suggest", value: "Suggest changes, report bugs, and give feedback *(misuse will result in a ban from using this command!)*"},
+        {name: "setprefix", value: "Set a new prefix for BottingAtHome for your server! Restrictions apply"},
+        {name: "Found a bug? Report below, DM **@LOUIS#3375**, or use suggest!", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
     )
 
     message.author.send(helpEmbed)

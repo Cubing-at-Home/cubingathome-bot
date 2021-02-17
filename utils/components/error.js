@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const prefix = process.env.NODE_ENV === 'production' ? require("../../config.json").prefix : require("../../config.json").devPrefix;
+//const prefix = process.env.NODE_ENV === 'production' ? require("../../config.json").prefix : require("../../config.json").devPrefix;
 
 
 function cahError(message, error) {
@@ -11,7 +11,7 @@ function cahError(message, error) {
         .setColor("#ff0000")
         .setTitle("An Error Occurred!")
         .setDescription(`<@${message.author.id}>, ${error}`)
-        .setFooter(`use ${prefix}help for help`,"https://cubingathome.com/logo.png")
+        .setFooter(`use \`help\` for help`,"https://cubingathome.com/logo.png")
 
     //auto-delete both error and message that caused error after 5 seconds
     message.channel.send(errorEmbed)

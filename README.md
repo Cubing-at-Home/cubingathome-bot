@@ -49,6 +49,13 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 
 ### `changes`
 **View recent updates to the bot**
+
+### `setprefix` *$new_prefix*
+**Customize the prefix of the bot, must have *Administrator* role**
+
+### `suggest` *$suggestions*
+**Suggest changes and give feedback directly in Discord! You are limited to having 5 open suggestions at a time, and will be banned from suggesting if command is abused.**
+
 ## To Do
 ### In-Progress
 - Solver, for any scramble AND previously called scramble on react (necessary?)
