@@ -2,7 +2,7 @@ const error = require("../utils/components/error");
 const suggest = require("../db/connections/suggest");
 
 function execute(message, args) {
-    if (!args) {error(message, "No suggestion given!");return;}
+    if (!args || args.length==0) {error(message, "No suggestion given!");return;}
     if (args.join(" ").length>100) {error(message, "Too long! Please make suggestions concise.");return;}
     suggest(message.author.id, args.join(" "))
         .then(suggestionReg => {
