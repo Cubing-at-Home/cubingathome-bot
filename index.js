@@ -58,7 +58,7 @@ client.on("message" , msg => {
             .then(prefix => {
                 PREFIX = prefix;
                 console.log(PREFIX);
-               if (!msg.content.toLowerCase().startsWith(PREFIX) ) return;
+               if (!msg.content.toLowerCase().startsWith(PREFIX)) return;
 
                 //get args+command
                 const args = msg.content.slice(PREFIX.length).trim().split(/ +/);

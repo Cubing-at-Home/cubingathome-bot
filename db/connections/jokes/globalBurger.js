@@ -5,7 +5,6 @@ async function burger() {
     try {
         const client = await pool.connect();
         const getBurger = await client.query(`SELECT date FROM burger;`)
-        console.log(getBurger.rows);
         if (getBurger.rows.length===0 || parseInt(getBurger.rows[0].date)<new Date().getTime()) {
             await client.query(`UPDATE burger SET date='${new Date().getTime()+(1000*60*60*12)}'`)
             return "set";
