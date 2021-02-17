@@ -59,14 +59,13 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 ## To Do
 ### In-Progress
 - Solver, for any scramble AND previously called scramble on react (necessary?)
-- Add `log` command to get the newest updates (Github api?)
+- Alg search with algdb.net
 
 ### Maybe?
 - Better logo
 - Head-to-head comparison
 - Competition feature (eh)
 - OAuth w/ WCA account?? (probably possible but would have to change hosting to have storage)
-- Alg search with algdb.net
 - Discord solves using three.js/canvas??? (I think this would be very cool but hard to implement)
 ## Bug Reporting/Feature Request
 Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md) and clearly describe the issue. To request a new feature, please use [feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md).
