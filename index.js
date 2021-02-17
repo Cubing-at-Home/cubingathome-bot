@@ -53,6 +53,8 @@ client.on("guildDelete", guild => {
 client.on("message" , msg => {
     //handle invalid senders
     if (msg.author.bot) return;
+    const prefixReg = new RegExp(/([a-zA-z])?[!\$&^|\*\?]$/gm);
+    if (!prefixReg.test(msg.content.slice(0,1)) && !prefixReg.test(msg.content.slice(0,2))) return;
     if (msg.guild) {
         getPrefix(msg.guild.id)
             .then(prefix => {

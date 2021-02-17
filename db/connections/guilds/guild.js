@@ -15,8 +15,8 @@ async function guildConnect(guildId) {
         }
         client.release()
     } catch(err) {
-        return err;
         console.error(err);
+        return err;
     }
 }
 
