@@ -36,7 +36,7 @@ function ao5(arr) {
     let res = [];
     arr.forEach(t=>{res.push(parseTime(t))})
     const sorted = res.sort((a,b)=>a-b);
-    return "**ao5:** " + prettyTime(Math.floor(((sorted[1]+sorted[2]+sorted[3])/3)))
+    return "**ao5: ** " + prettyTime(Math.floor(((sorted[1]+sorted[2]+sorted[3])/3)))
 }
 
 function mo3(arr) {
@@ -44,7 +44,7 @@ function mo3(arr) {
     arr.forEach(time => {
         sum+=parseTime(time);
     })
-    return "**mo3** "+prettyTime(Math.round(sum/3));
+    return "**mo3: ** "+prettyTime(Math.round(sum/3));
 }
 function execute(message, args) {
     //(y)y.x(x)(x)
