@@ -23,6 +23,7 @@ function execute(message, args) {
         {name:"server", value: "Gets the number of server members"},
         {name: "help", value: "Returns this message"},
         {name:  "wca *[WCA ID]*", value:"Get a person's WCA profile"},
+        {name: "avg", value:"Quickly get the ao5 or mo3 of a number of times (times must be in *(mm:)ss.mm(m)* format)"},
         {name: "invite", value: "Invite BottingAtHome to your own server!"},
         {name: "changes", value: "View recent updates to BottingAtHome"},
         {name: "suggest", value: "Suggest changes, report bugs, and give feedback *(misuse will result in a ban from using this command!)*"},
