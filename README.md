@@ -60,13 +60,16 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 ### In-Progress
 - Solver, for any scramble AND previously called scramble on react (necessary?)
 - Alg search with algdb.net
+- Discord solves: in progress
 
 ### Maybe?
 - Better logo
 - Head-to-head comparison
 - Competition feature (eh)
 - OAuth w/ WCA account?? (probably possible but would have to change hosting to have storage)
-- Discord solves using three.js/canvas??? (I think this would be very cool but hard to implement)
+
+## Support
+I am currently working on upgrading the hosting & database of Botting@Home, and any support would be greatly appreciated. Sponsors also have access to supporter-only commands (TBD), so include your Discord tag in your sponsor message if you'd like access to those. 
 ## Bug Reporting/Feature Request
 Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md) and clearly describe the issue. To request a new feature, please use [feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md).
 
