@@ -2,6 +2,7 @@ const firebase = require("firebase-admin");
 //const serviceAccount = require("./firebase.json");
 require("dotenv").config();
 
+
 const serviceAccount = {
     "type":process.env.type,
     "projectId":process.env.project_id,
