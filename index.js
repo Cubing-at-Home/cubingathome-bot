@@ -1,12 +1,10 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const _444 = require("./utils/scr")[444]
 const error = require("./utils/components/error");
 
-const {guildConnect,getPrefix} = require("./db/connections/guilds/guild");
+const { getGuildSettings, createGuild, deleteGuild } = require("./db/guilds");
 require("dotenv").config()
 const TOKEN = process.env.NODE_ENV === 'production' ? process.env.TOKEN : process.env.DEV_TOKEN;
-//const PREFIX = process.env.NODE_ENV === 'production' ? require("./config.json").prefix : require("./config.json").devPrefix;
 let PREFIX;
 
 const client = new Discord.Client();
@@ -31,10 +29,10 @@ client.on("ready", () => {
             type: "WATCHING"
         }
     ).then(_ => {
-        client.guilds.cache.forEach(guild => {
-            guildConnect(guild.id);
-        })
         
+        client.guilds.cache.forEach(guild => {
+            createGuild(guild);
+        })
         client.user.setStatus("dnd");
     })
     
@@ -42,23 +40,36 @@ client.on("ready", () => {
 
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.name);
-    guildConnect(guild.id);
+    createGuild(guild);
 })
 
 //removed from a server
 client.on("guildDelete", guild => {
     console.log("Left a guild: " + guild.name);
+    deleteGuild(guild);
 })
 
 client.on("message" , msg => {
     //handle invalid senders
     if (msg.author.bot) return;
-    const prefixReg = new RegExp(/([a-zA-z])?[!\$&^|\*\?]$/gm);
-    if (!prefixReg.test(msg.content.slice(0,1)) && !prefixReg.test(msg.content.slice(0,2))) return;
     if (msg.guild) {
-        getPrefix(msg.guild.id)
-            .then(prefix => {
-                PREFIX = prefix;
+        //check if prefix could even exist to avoid db querying
+        const prefixReg = new RegExp(/([a-zA-z])?[!\$&^|\*\?]$/gm);
+        if (!prefixReg.test(msg.content.slice(0,1)) && !prefixReg.test(msg.content.slice(0,2))) return;
+
+        //check if command exists as well before db querying
+        const commandNameTestOne = msg.content.slice(1).trim().split(/ +/).shift().toLowerCase();
+        const commandNameTestTwo = msg.content.slice(2).trim().split(/ +/).shift().toLowerCase();
+        const commandTestOne = client.commands.get(commandNameTestOne)
+                    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandNameTestOne));
+        const commandTestTwo = client.commands.get(commandNameTestTwo)
+                    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandNameTestTwo));
+
+        if (!commandTestOne && !commandTestTwo) return;
+
+        getGuildSettings(msg.guild)
+            .then(res => {
+                PREFIX = res.prefix;
                 console.log(PREFIX);
                if (!msg.content.toLowerCase().startsWith(PREFIX)) return;
 
