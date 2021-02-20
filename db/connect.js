@@ -1,7 +1,7 @@
 const firebase = require("firebase-admin");
 require("dotenv").config();
 
-admin.initializeApp({
+firebase.initializeApp({
     credential: admin.credential.cert({
       "projectId": process.env.FIREBASE_PROJECT_ID,
       "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
