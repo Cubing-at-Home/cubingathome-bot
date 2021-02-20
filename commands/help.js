@@ -17,6 +17,7 @@ function execute(message, args) {
     .setTitle("Commands & Information")
     .setColor(color)
     .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
+    .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/1200px-Blue_question_mark_icon.svg.png")
     .addFields(
         {name: "scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, AND pictures of the scrambles (available for 30 seconds)"},
         {name: "*[event]* *[num scrambles]*", value: "Same command as above but shorter!"},
