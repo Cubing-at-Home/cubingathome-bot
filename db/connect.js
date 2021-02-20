@@ -1,14 +1,10 @@
-const { Pool } = require("pg");
+const firebase = require("firebase-admin");
+const serviceAccount = require("./firebase.json");
 
-//if not production parses env automatically to connect to local pg
-const pool = process.env.NODE_ENV === "production" 
-    ? 
-    new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: {
-            rejectUnauthorized: false
-        }
-    }) 
-    :
-    new Pool();
-module.exports = pool;
+firebase.initializeApp({
+    credential: firebase.credential.cert(serviceAccount)
+});
+
+const db = firebase.firestore();
+
+module.exports = db;
