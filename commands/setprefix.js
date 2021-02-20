@@ -1,5 +1,5 @@
 const error = require("../utils/components/error");
-const { setPrefix } = require("../db/connections/guilds/guild");
+const { updateGuildSettings } = require("../db/guilds");
 
 function execute(message, args) {
     //must be admin
@@ -15,14 +15,8 @@ function execute(message, args) {
     } 
     const newPrefix = args[0];
     if(newPrefix.match(validPrefix)) {
-        setPrefix(message.guild.id,args)
-            .then(res=>{
-                message.channel.send(`Successfully set prefix to **${args}**`);
-            })
-            .catch(err=>{
-                error(message, "Failed to set new prefix!");
-            })
-
+        updateGuildSettings(message.guild,newPrefix)
+            .then(_=>message.channel.send(`Updated prefix to **${newPrefix}**`))
     } else {
         error(message, "Invalid prefix! Must match this Regular Expression: `/([a-zA-z])?[!\$&^|\*\?]$/`")
     }
