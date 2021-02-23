@@ -1,4 +1,4 @@
-const db = require("./connect");
+const db = require("./connect").defaultDB;
 const admin = require("firebase-admin")
 
 async function isBannedFromSuggesting(user) {

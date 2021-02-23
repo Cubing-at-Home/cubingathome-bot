@@ -1,4 +1,4 @@
-const db = require("./connect");
+const db = require("./connect").defaultDB;
 
 
 async function getGuildSettings(guild) {

@@ -1,8 +1,8 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const error = require("./utils/components/error");
-
 const { getGuildSettings, createGuild, deleteGuild } = require("./db/guilds");
+const initListener = require("./db/cah/eventListener");
 require("dotenv").config()
 const TOKEN = process.env.NODE_ENV === 'production' ? process.env.TOKEN : process.env.DEV_TOKEN;
 let PREFIX;
@@ -22,6 +22,7 @@ for (const file of commandFiles) {
 
 //on
 client.on("ready", () => {
+    initListener(client);
     console.log("Logged in as " + client.user.tag);
     client.user.setActivity(
         "'The Speed Cubers' on Netflix",
@@ -120,7 +121,5 @@ client.on("message" , msg => {
     }
     
 });
-
-//antiSpam.on("spamThresholdWarn", (member) => console.log(`${member.user.tag} has reached the warn threshold.`));
 
 client.login(TOKEN);
