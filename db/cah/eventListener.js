@@ -17,8 +17,8 @@ async function addRoundListener(client) {
                 if (previousRounds[index].isOpen !== round.isOpen) {
                     round.isOpen ? console.log(round.id + " is open!"): console.log(round.id + " is not open!")
                     if (round.isOpen) {
-                        client.user.setActivity(`${round.id.replace("-"," ")}`,{type:"COMPETING"})
-                        CHANNEL.send(`@everyone, **${round.id}** is happening now!`)
+                        client.user.setActivity(`${round.id.replace("-r1"," round 1").replace("-r2", " round 2")}`,{type:"COMPETING"})
+                        CHANNEL.send(`@everyone, **${round.id.replace("-r1"," round 1").replace("-r2", " round 2")}** is happening now! Compete now: https://www.cubingathome.com/cah2.1/compete`)
                     } else {
                         client.user.setActivity("Cubing At Home 2.1",{type: "COMPETING"})
                     }
