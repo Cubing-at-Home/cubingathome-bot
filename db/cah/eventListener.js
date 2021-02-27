@@ -27,7 +27,7 @@ async function addRoundListener(client) {
                             "333bf":"3x3 blindfolded"
                         }[roundId];
                         client.user.setActivity(`${round.id.replace("-r1"," round 1").replace("-r2", " round 2")}`,{type:"COMPETING"})
-                        CHANNEL.send(`@everyone, **${roundFormatted} ${round.id.replace("-r1"," round 1").replace("-r2"," round 2").replace("roundId","")}** is happening now! Compete: https://www.cubingathome.com/cah2.1/compete`)
+                        CHANNEL.send(`@everyone, **${roundFormatted} ${round.id.replace("-r1"," round 1").replace("-r2"," round 2").replace(roundId,"")}** is happening now! Compete: https://www.cubingathome.com/cah2.1/compete`)
                     } else {
                         client.user.setActivity("Cubing At Home 2.1",{type: "COMPETING"})
                     }
