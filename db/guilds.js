@@ -17,7 +17,9 @@ async function createGuild(guild) {
         await db.collection("GuildSettings").doc(String(guildId)).set({
             id: guildId,
             name: guildName,
-            prefix: "s!"
+            prefix: "s!",
+            burger: 0,
+            burgerCaller: null
         })
         console.log(`New guild created in db, ${guild.name} (${guild.id})`);
     } else {
