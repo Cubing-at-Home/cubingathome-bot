@@ -16,7 +16,7 @@ async function burger(message) {
                     ? oldLeaderboard[message.author.id] ++
                     : oldLeaderboard[message.author.id] = 1 
                 await db.collection("GuildSettings").doc(guildId).update({
-                    burger: new Date().getTime() + (12 * 60 * 60 * 1000),
+                    burger: new Date().getTime() + (6 * 60 * 60 * 1000),
                     burgerCaller: message.author.id,
                     burgerLeaderboard: oldLeaderboard
                 })
