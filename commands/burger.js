@@ -7,7 +7,7 @@ function execute(message, args) {
             if (data == "set") {
                 message.channel.send("🍔")
             } else {
-                message.channel.send(`Burger was already called by **${message.guild.members.cache.find(u => u.id==data.burgerCaller).nickname ? message.guild.members.cache.find(u => u.id==data.burgerCaller).nickname : message.guild.members.cache.find(u => u.id==data.burgerCaller).username}**, and can be called again in ${Math.floor(new Date(data.burger - new Date().getTime()).getTime()/(1000*60*60)*100)/100} hours.`)
+                message.channel.send(`Burger was already called by **${message.guild.member(data.burgerCaller) ? message.guild.member(data.burgerCaller).nickname : "someone"}**, and can be called again in ${Math.floor(new Date(data.burger - new Date().getTime()).getTime()/(1000*60*60)*100)/100} hours.`)
             }
         })
 
