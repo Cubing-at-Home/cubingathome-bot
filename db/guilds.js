@@ -19,7 +19,8 @@ async function createGuild(guild) {
             name: guildName,
             prefix: "s!",
             burger: 0,
-            burgerCaller: null
+            burgerCaller: null,
+            burgerLeaderboard: {}
         })
         console.log(`New guild created in db, ${guild.name} (${guild.id})`);
     } else {
