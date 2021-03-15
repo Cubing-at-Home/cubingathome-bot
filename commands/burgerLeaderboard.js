@@ -22,8 +22,9 @@ function execute(message, args) {
                     if (!sorted[i]) {
                         i=3;
                     } else {
+                        //.console.log(message.client.users.cache.get(sorted[i][0]).username)
                         fields.push({
-                            name: `${awards[i]} ${message.client.users.cache.find(u => u.id==sorted[i][0]) ? message.client.users.cache.find(u => u.id==sorted[i][0]).user.username : "Person...."}`,
+                            name: `${awards[i]} ${message.client.users.cache.get(sorted[i][0]) ? message.client.users.cache.get(sorted[i][0]).username : "Gone :("}`,
                             value: sorted[i][1]
                         })
                     }
