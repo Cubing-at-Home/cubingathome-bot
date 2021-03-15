@@ -23,7 +23,7 @@ function execute(message, args) {
                         i=3;
                     } else {
                         fields.push({
-                            name: `${awards[i]} ${message.guild.members.cache.find(u => u.id==sorted[i][0]).nickname? message.guild.members.cache.find(u => u.id==sorted[i][0]).nickname : message.guild.members.cache.find(u => u.id==sorted[i][0]).user.username}`,
+                            name: `${awards[i]} ${message.guild.members.cache.find(u => u.id==sorted[i][0]).user.username}`,
                             value: sorted[i][1]
                         })
                     }
