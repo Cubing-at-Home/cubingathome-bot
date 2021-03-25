@@ -15,7 +15,7 @@ function execute(message, args) {
                 for (var tbs in res) {
                     sorted.push([tbs, res[tbs]])
                 }
-                sorted.sort((a, b) => {
+                sorted = sorted.sort((a, b) => {
                     return b[1]-a[1]
                 }).slice(0,2)
 
