@@ -1,5 +1,6 @@
 const cahEmbed = require("../utils/components/cahEmbed");
 const getLeaderboard = require("../db/burger").getLeaderboard;
+const getUsernames = require("../utils/discord-api").getUsernames;
 
 function execute(message, args) {
     getLeaderboard(message.guild.id)
@@ -16,20 +17,20 @@ function execute(message, args) {
                 }
                 sorted.sort((a, b) => {
                     return b[1]-a[1]
-                })
+                }).slice(0,2)
 
-                for (var i=0; i<3; i++) { 
-                    if (!sorted[i]) {
-                        i=3;
-                    } else {
-                        //.console.log(message.client.users.cache.get(sorted[i][0]).username)
-                        fields.push({
-                            name: `${awards[i]} ${message.client.users.cache.get(sorted[i][0]) ? message.client.users.cache.get(sorted[i][0]).username : "Gone :("}`,
-                            value: sorted[i][1]
+                const sortedUserIDs = sorted.map(elem => elem[0]);
+                getUsernames(sortedUserIDs)
+                    .then(users => {
+                        users.forEach((user, key) => {
+                            fields.push({
+                                name: `${awards[key]} ${user.data.username}`,
+                                value: sorted[key][1]
+                            })
                         })
-                    }
-                }
-                message.channel.send(cahEmbed("Burger Leaderboard :hamburger:", fields))
+                    })
+                    .then(_ => message.channel.send(cahEmbed("Burger Leaderboard :hamburger:", fields)))
+                    .catch(err => console.log(err))
             }
         })
 }
