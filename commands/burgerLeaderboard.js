@@ -17,7 +17,7 @@ function execute(message, args) {
                 }
                 sorted = sorted.sort((a, b) => {
                     return b[1]-a[1]
-                }).slice(0,2)
+                }).slice(0,3)
 
                 const sortedUserIDs = sorted.map(elem => elem[0]);
                 getUsernames(sortedUserIDs)
