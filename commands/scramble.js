@@ -43,7 +43,8 @@ const scrTypes = [
     {imageCode: "333",  vizCode:"333", scrCode: "ell", aliases:["ell"],displayCode:"ELL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"},
-    {imageCode: "333mbf",  vizCode:"333", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"}
+    {imageCode: "333mbf",  vizCode:"333", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"},
+    {imageCode: "fto", scrCode:"fto", aliases:["fto"], displayCode:"FTO"}
 ]
 
 function execute(message, args) {
@@ -101,6 +102,7 @@ function execute(message, args) {
     //scramble view logic 
     message.channel.send(response)
         .then(sentMsg => {
+            if (!scrType.vizCode) return;
             //num per scramble
             //doesn't work for mbld, so let's just ignore it for now
             if (scrType.displayCode=="333mbld") return;

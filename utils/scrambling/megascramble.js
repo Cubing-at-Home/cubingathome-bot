@@ -154,6 +154,10 @@ var megaScrambler = (function(mega, rn, rndEl) {
 		return scramble;
 	}
 
+	  function getFTOScramble(n) {
+		  return megascramble("fto", n);
+	  }
+
 	  function get444WCAScramble(n) {
 	  	return megascramble("444wca", n);
 	  }
@@ -317,6 +321,8 @@ var megaScrambler = (function(mega, rn, rndEl) {
 	    get999scramble: get999scramble,
 	    get101010scramble: get101010scramble,
 	    get111111scramble: get111111scramble,
+
+		getFTOScramble: getFTOScramble
 	  }
 
 })(scramble.mega, mathlib.rn, mathlib.rndEl);

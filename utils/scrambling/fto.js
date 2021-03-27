@@ -2168,4 +2168,7 @@ function solve_phase2_and_phase3_fast(facelets, phase2_attempts=2, cap=32)
 	}
 	return best;
 }
-//module.exports = ???
+
+module.exports = {
+	scramble: generate_random_state_scramble
+}

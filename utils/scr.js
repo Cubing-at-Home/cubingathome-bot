@@ -1,16 +1,18 @@
 //const scrambler133 = require("./scrambling/1x3x3");
 //const scrambler222 = require("./scrambling/2x2x2");
 //const scrambler223 = require("./scrambling/2x2x3");
-const cross = require("./scrambling/cross");
+//const cross = require("./scrambling/cross");
+const fto = require("./scrambling/fto")
 const megaScrambler = require("./scrambling/megascramble");
 const pyra_scrambler = require("./scrambling/pyraminx");
 const scramble_333 = require("./scrambling/scramble_333_edit");
 const scramble_444 = require("./scrambling/scramble_444");
 const sql_scrambler = require("./scrambling/scramble_sq1");
-const scramble = require("./scrambling/scramble");
+//const scramble = require("./scrambling/scramble");
 const skewb_scrambler = require("./scrambling/skewb");
 const util_scramble = require("./scrambling/utilscramble");
 const scramble_222 = require("./scrambling/2x2x2");
+//const { scramblers } = require("./scrambling/scramble");
 //add fto?
 
 function _222() {
@@ -65,6 +67,11 @@ function _fmc() {
     return scramble_333.getFMCScramble();
 }
 
+function _fto() {
+    //console.log("fto.scramble()")
+    return megaScrambler.getFTOScramble(50);
+}
+
 module.exports = {
     333: _333,
     222: _222,
@@ -93,5 +100,6 @@ module.exports = {
     ell:scramble_333.getELLScramble,
     cmll:scramble_333.getCMLLScramble,
     pll: scramble_333.getPLLScramble,
-    bld: scramble_333.get3BLDScramble
+    bld: scramble_333.get3BLDScramble,
+    fto: _fto
 }
