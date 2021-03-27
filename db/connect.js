@@ -23,14 +23,14 @@ firebase.initializeApp({
     })
 });
 
-// const cahFB = firebase.initializeApp({
-//   credential: firebase.credential.cert(serviceAccount)
-// }, "cahDB");
+const cahFB = firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount)
+}, "cahDB");
 
 const defaultDB = firebase.firestore();
-//const cahDB = cahFB.firestore();
+const cahDB = cahFB.firestore();
 
 module.exports = {
-  defaultDB: defaultDB//,
-  //cahDB: cahDB
+  defaultDB: defaultDB,
+  cahDB: cahDB
 };
