@@ -6,7 +6,7 @@ function execute(message, args) {
         .then(data => {
             console.log(data);
             if (data == "set") {
-                message.channel.send("🍔")
+                message.channel.send("🌭")
             } else {
                 getUsername(data.burgerCaller)
                     .then(user => {
