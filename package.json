@@ -4,7 +4,8 @@
   "description": "A Discord bot made for the Cubing at Home server.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "update": "git push origin main && git push heroku main"
   },
   "author": "louismeunier",
   "license": "GPL",
