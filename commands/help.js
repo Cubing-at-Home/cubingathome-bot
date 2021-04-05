@@ -19,17 +19,7 @@ function execute(message, args) {
     .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
     .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/1200px-Blue_question_mark_icon.svg.png")
     .addFields(
-        {name: "scramble *[event]* *[num scrambles]*", value: "Generates random Rubik's cube scrambles, AND pictures of the scrambles (available for 30 seconds)"},
-        {name: "*[event]* *[num scrambles]*", value: "Same command as above but shorter!"},
-        {name:"server", value: "Gets the number of server members"},
-        {name: "help", value: "Returns this message"},
-        {name:  "wca *[WCA ID]*", value:"Get a person's WCA profile"},
-        {name: "avg", value:"Quickly get the ao5 or mo3 of a number of times (times must be in *(mm:)ss.mm(m)* format)"},
-        {name: "invite", value: "Invite BottingAtHome to your own server!"},
-        {name: "changes", value: "View recent updates to BottingAtHome"},
-        {name: "suggest", value: "Suggest changes, report bugs, and give feedback *(misuse will result in a ban from using this command!)*"},
-        {name: "setprefix", value: "Set a new prefix for BottingAtHome for your server! Restrictions apply"},
-        {name: "Found a bug? Report below, DM **@LOUIS#3375**, or use suggest!", value:"[Github](https://github.com/louismeunier/cubingathome-bot/blob/main/README.md)"}
+        {name: "Commands:", value: "https://github.com/Cubing-at-Home/cubingathome-bot/tree/main/docs/README.md"}
     )
 
     message.author.send(helpEmbed)
