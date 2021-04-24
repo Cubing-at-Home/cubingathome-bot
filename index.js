@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 //on
 client.on("ready", () => {
     //init the round listener
-    initListener(client);
+    //initListener(client);
     console.log("Logged in as " + client.user.tag);
     client.user.setActivity(
         "'The Speed Cubers' on Netflix",
