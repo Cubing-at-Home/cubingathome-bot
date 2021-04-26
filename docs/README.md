@@ -1,4 +1,4 @@
-#BottingAtHome - Commands Documentation
+# BottingAtHome - Commands Documentation
 
 ## `setprefix $prefix`
 
