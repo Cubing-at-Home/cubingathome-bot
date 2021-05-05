@@ -23,7 +23,7 @@ function execute(message, args) {
                 })
 
                 const sortedUserIDs = sorted.map(elem => elem[0]);
-                getUsernames(sortedUserIDs)
+                getUsernames(sortedUserIDs.slice(0,10))
                     .then(users => {
                         const numPages = Math.ceil(users.length/3);
                         var pages = [];
