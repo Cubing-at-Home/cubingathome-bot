@@ -1,6 +1,8 @@
 const cahEmbed = require("../utils/components/cahEmbed");
 const getLeaderboard = require("../db/burger").getLeaderboard;
 const getUsernames = require("../utils/discord-api").getUsernames;
+const paginationEmbed = require("discord.js-pagination");
+const { MessageEmbed } = require("discord.js");
 
 function execute(message, args) {
     getLeaderboard(message.guild.id)
@@ -15,21 +17,32 @@ function execute(message, args) {
                 for (var tbs in res) {
                     sorted.push([tbs, res[tbs]])
                 }
+
                 sorted = sorted.sort((a, b) => {
                     return b[1]-a[1]
-                }).slice(0,3)
+                })
 
                 const sortedUserIDs = sorted.map(elem => elem[0]);
                 getUsernames(sortedUserIDs)
                     .then(users => {
-                        users.forEach((user, key) => {
-                            fields.push({
-                                name: `${awards[key]} ${user.data.username}`,
-                                value: sorted[key][1]
-                            })
-                        })
+                        const numPages = Math.ceil(users.length/3);
+                        var pages = [];
+                        console.log(numPages);
+                        for (i=0;i<numPages;i++) {
+                            var fields = [];
+                            for (j=0;j<3;j++) {
+                                if (users[(3*i)+j]) {
+                                    fields.push({
+                                        name: `${(3*i)+j<3 ? awards[(3*i)+j] : `**${(3*i)+j+1}.**`} ${users[(3*i)+j].data.username}`, 
+                                        value: sorted[(3*i)+j][1]
+                                    })
+                                }
+                            }
+                            console.log(pages);
+                            pages.push(cahEmbed(":hamburger: Burger Leaderboard :hamburger:", fields));
+                        }
+                        paginationEmbed(message, pages);
                     })
-                    .then(_ => message.channel.send(cahEmbed("Burger Leaderboard :hamburger:", fields)))
                     .catch(err => console.log(err))
             }
         })

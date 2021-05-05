@@ -56,6 +56,7 @@ client.on("message" , msg => {
     if (msg.author.bot) return;
     if (msg.guild) {
         //check if prefix could even exist to avoid db querying
+        if (process.env.NODE_ENV != 'production') PREFIX="d!";
         const prefixReg = new RegExp(/([a-zA-z])?[!\$&^|\*\?]$/gm);
         if (!prefixReg.test(msg.content.slice(0,1)) && !prefixReg.test(msg.content.slice(0,2))) return;
 
