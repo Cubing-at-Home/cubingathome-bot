@@ -41,7 +41,9 @@ function execute(message, args) {
                             console.log(pages);
                             pages.push(cahEmbed(":hamburger: Burger Leaderboard :hamburger:", fields));
                         }
-                        paginationEmbed(message, pages);
+                        paginationEmbed(message, pages)
+                        .then(val => console.log("success"))
+                        .catch(err => console.log(err))
                     })
                     .catch(err => console.log(err))
             }
