@@ -12,6 +12,7 @@ const sql_scrambler = require("./scrambling/scramble_sq1");
 const skewb_scrambler = require("./scrambling/skewb");
 const util_scramble = require("./scrambling/utilscramble");
 const scramble_222 = require("./scrambling/2x2x2");
+const generateKilo = require("./scrambling/kilo")
 //const { scramblers } = require("./scrambling/scramble");
 //add fto?
 
@@ -101,5 +102,6 @@ module.exports = {
     cmll:scramble_333.getCMLLScramble,
     pll: scramble_333.getPLLScramble,
     bld: scramble_333.get3BLDScramble,
-    fto: _fto
+    fto: _fto,
+    kilo: generateKilo
 }

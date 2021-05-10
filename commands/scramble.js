@@ -44,7 +44,8 @@ const scrTypes = [
     {imageCode: "333",  vizCode:"333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"},
     {imageCode: "333mbf",  vizCode:"333", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"},
-    {imageCode: "fto", scrCode:"fto", aliases:["fto"], displayCode:"FTO"}
+    {imageCode: "fto", scrCode:"fto", aliases:["fto"], displayCode:"FTO"},
+    {imageCode: "kilo", scrCode: "kilo", aliases:["kilo","kibi","kilominx","kibiminx"], displayCode:"Kilominx"}
 ]
 
 function execute(message, args) {
