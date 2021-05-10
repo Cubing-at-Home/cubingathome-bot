@@ -12,7 +12,7 @@ Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/b
 
 ## Acknowledgement
 
-The code in  [/utils/scrambling](/utils/scrambling) is from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer).
+The code in  [/utils/scrambling](/utils/scrambling) is primarily from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer). The kilo scrambling is adapted from [this](https://gist.github.comtorchlight/994d1faf4359f969456bb47415c878ed) gist, from @xyzzy on the speedsolving forums, found [in this thread](https://www.speedsolving.com/threads/one-answer-software-question-thread.50244/page-21#post-1379853).
 
 The logic in [/utils/visualizer](/utils/visualizer) is also from [cs0x7f/cstimer](https://github.com/cs0x7f/cstimer), specifically the `Draw Scramble` tool function. However, it is **heavily** edited so that it works with `canvas-node` rather than the intended web canvas. It can also be used stand-alone as a way to generate scrambles for almost any event using Node JS. The main function in `image.js` returns an image buffer, but can be modified to return a png, canvas object, etc..
 
