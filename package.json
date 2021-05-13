@@ -17,5 +17,8 @@
     "dotenv": "^8.2.0",
     "firebase": "^8.2.8",
     "firebase-admin": "^9.5.0"
+  },
+  "engines": {
+    "node": "12.8.x"
   }
 }
