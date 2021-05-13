@@ -19,6 +19,6 @@
     "firebase-admin": "^9.5.0"
   },
   "engines": {
-    "node": "12.8.x"
+    "node": "12.10.0"
   }
 }
