@@ -1,60 +1,8 @@
 /* kilosolver.js - A kilominx solver
-version 0.7 (2021-04-03)
-Copyright (c) 2016, 2020, 2021
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-This is a port of the kilominx solver originally written in Python with a few minor optimisations.
-How to run this:
-(0) Save this file somewhere.
-(1) Install any JavaScript shell and run it with this file.
-(2) Type stuff into the shell.
-(or just use the HTML interface! it exists now!)
-There is currently not much of a public interface. Useful stuff:
-cache_all_tables()
-    to generate all the lookup tables
-print_move_sequence(generate_random_state_scramble())
-    to get a random-state scramble
-print_move_sequence(generate_hybrid_scramble())
-    to get a hybrid random-move scramble
-For the full solver (used in the random-state scrambler), a few hundred megabytes of RAM may be used
-for the lookup tables, which will also take roughly a minute to generate. Once generated, each solve
-takes roughly 0.08 second.
-The hybrid scrambler uses much smaller lookup tables that take less memory and are generated faster,
-but produces somewhat longer scramble sequences and isn't fully random-state. It should nevertheless
-be good enough for non-competition purposes.
-On the to-do list:
-- optimise the heck out of the lookup table generation
-- a GUI for the solver
-- optimise the solver with colour neutrality and NISS(tm) techniques
-- throw all the global variables into a namespace
-Compatibility notes:
-This code makes fairly heavy use of ES6 syntactic sugar because writing code in JavaScript's already
-an exercise in masochism and I'm not going to make my life harder by restricting myself to ES5. Some
-of the features used are:
-- let, const
-- destructuring assignment
-- for-of
-- arrow functions
-- 'use strict'
-Any web browser from 2016 or later should support all of these; the code has been tested only on the
-latest versions of Firefox and Chrome, as well as a somewhat outdated SpiderMonkey shell, but should
-also work with recent versions of Edge, Safari, etc.
-*/
 
-'use strict';
+adapted from https://gist.github.comtorchlight/994d1faf4359f969456bb47415c878ed
+
+*/
 
 module.exports = function generateKilo() {
 	return stringify_move_sequence(generate_random_state_scramble());
@@ -62,13 +10,6 @@ module.exports = function generateKilo() {
 
 let PHASE4_THRESHOLD = 7;
 // change this to 8 to make the individual solves faster, at the cost of slower initialisation
-
-function counter(A)
-{
-	let counts = [];
-	for (let a of A) counts[a] = (counts[a] || 0) + 1;
-	return counts;
-}
 
 /* Combinatoric functions */
 
@@ -115,25 +56,6 @@ function permutation_to_index(perm)
 	return ind;
 }
 
-function index_to_permutation(ind, n)
-{
-	let perm = [];
-	let f = factorial(n-1);
-	for (let i = 0; i < n; i++)
-	{
-		perm[i] = (ind / f) | 0;
-		ind %= f;
-		f /= n-1-i;
-	}
-	for (let i = n-2; i >= 0; i--)
-	{
-		for (let j = i+1; j < n; j++)
-		{
-			perm[j] += +(perm[j] >= perm[i]);
-		}
-	}
-	return perm;
-}
 
 function permutation_parity(A)
 {
@@ -147,30 +69,6 @@ function permutation_parity(A)
 		}
 	}
 	return parity;	
-}
-
-function index_to_evenpermutation(ind, n)
-{
-	let perm = [];
-	let f = factorial(n-1) / 2;
-	let parity = 0;
-	for (let i = 0; i < n-1; i++)
-	{
-		perm[i] = (ind / f) | 0;
-		ind %= f;
-		f /= n-1-i;
-	}
-	perm[n-1] = 0;
-	for (let i = n-2; i >= 0; i--)
-	{
-		for (let j = i+1; j < n; j++)
-		{
-			if (perm[j] >= perm[i]) perm[j]++;
-			else parity ^= 1;
-		}
-	}
-	if (parity === 1) [perm[n-2], perm[n-1]] = [perm[n-1], perm[n-2]];
-	return perm;
 }
 
 function evenpermutation_to_index(perm)
@@ -332,8 +230,6 @@ let move_L = [permutation_from_cycle([2, 1, 7, 8, 9], 20), unsparsify_list({2: 2
 let move_BL = [permutation_from_cycle([1, 0, 5, 6, 7], 20), unsparsify_list({1: 2, 0: 1, 5: 1, 6: 1, 7: 1}, 20)];
 let move_BR = [permutation_from_cycle([0, 4, 13, 14, 5], 20), unsparsify_list({0: 2, 4: 1, 13: 1, 14: 1, 5: 1}, 20)];
 let move_x2 = [[15, 16, 17, 18, 19, 10, 9, 8, 7, 6, 5, 14, 13, 12, 11, 0, 1, 2, 3, 4], unsparsify_list({}, 20)];
-let move_y = [[1, 2, 3, 4, 0, 7, 8, 9, 10, 11, 12, 13, 14, 5, 6, 19, 15, 16, 17, 18], unsparsify_list({}, 20)];
-let move_rot = [[9, 10, 11, 3, 2, 8, 16, 15, 19, 12, 13, 4, 0, 1, 7, 14, 18, 17, 6, 5], [2, 0, 1, 2, 1, 2, 2, 0, 1, 1, 1, 1, 0, 2, 2, 1, 2, 1, 2, 0]];
 
 let moves = [move_U, move_R, move_F, move_L, move_BL, move_BR, move_x2];
 let move_names = ['U', 'R', 'F', 'L', 'BL', 'BR', 'flip'];
@@ -376,10 +272,6 @@ function stringify_move_sequence(move_sequence)
 	return s.join(' ');
 }
 
-function print_move_sequence(move_sequence)
-{
-	console.log(stringify_move_sequence(move_sequence));
-}
 
 function apply_move_sequence(state, move_sequence)
 {
@@ -395,124 +287,10 @@ function generate_random_state_scramble()
 	return solve(random_state());
 }
 
-function generate_random_move_scramble(M, N)
-{
-	M = M || 6;
-	N = N || 6;
-	// total number of moves = (M+1)(N+1)-1
-	let move_sequence = [];
-	for (let i = 0; i <= M; i++)
-	{
-		let last = -1, lastlast = -1;
-		for (let j = 0; j < N; j++)
-		{
-			let m;
-			while (true)
-			{
-				m = Math.floor(Math.random()*6);
-				// don't output stuff like U2 U
-				if (m === last) continue;
-				// U move never commutes with the others
-				else if (m === 0) break;
-				// don't output stuff like L R L because L and R commute
-				else if (m === lastlast && (m-last)*(m-last)%5 === 4) continue;
-				else break;
-			}
-			// make 144-deg moves twice as likely as 72-deg moves
-			move_sequence.push([m, 1+Math.round(Math.random()*3)]);
-			[last, lastlast] = [m, last];
-		}
-		// flip after every set of moves on the hemisphere except the last because that would be
-		// kind of pointless
-		if (i < M) move_sequence.push([6, 1]);
-	}
-	return move_sequence;
-}
-
-/* a brief note on analysing random-move scrambles
-Let M = num flips and N = num moves between flips.
-Tracking just corner orientation is pretty much useless to determine if a scramble is good, at least
-for the choice of CO reference used in the solver (<U,flip,(R'FRF')3>); even M=1, N=8 is good enough
-to randomise the CO, despite leaving a bunch of obvious blocks.
-Instead, we can track the location of, say, the white pieces. There are C(20, 5) combinations, so we
-just try out a million random-move scrambles and do a chi-squared test. (Except I don't have a stats
-package installed, so this is just a qualitative approximation.)
-M=4, N=5 (29 moves): +2.7 stddev
-M=3, N=8 (35 moves): +15.7 stddev
-M=5, N=5 (35 moves): -0.1 stddev
-M=4, N=7 (39 moves): +3.8 stddev
-M=5, N=6 (41 moves): -0.4 stddev
-M=4, N=8 (44 moves): +2.2 stddev
-(the 95% confidence interval for these estimated values should be taken to be +-2, as usual)
-Obviously we get closer to a uniform distribution with more moves, but we also want the scrambles to
-be of a reasonable length. M=5, N=6 seems to be a good tradeoff.
-This is until you realise that the five grey pieces are effectively scrambled with M reduced by one,
-so we compensate for that by using M=6, N=6, which gives 48-move scrambles.
-asdsadsf
-(tl;dr: use the hybrid scrambler if you can stomach 0.3-second initialisation; don't use this)
-*/
-
-/* GUI stuff
-The create_svg_template function returns an <svg> element with the facelets laid out neatly as a net
-and the draw_state function fills in the colours given a state.
-The input to the latter function does not have to be an <svg> element returned by the former, but it
-must contain an element for each of the 60 facelets, with class 'loc%d_%d' % (i, j), where i is from
-0 to 19 and j is either 0, 1 or 2.
-j = 0 corresponds to the reference facelet (the one closest to perpendicular to the U-D axis), j = 1
-corresponds to the one clockwise from the reference, and j = 2 corresponds to the one anticlockwise.
-Other than the loc%d_%d classes, the facelet <polygon> elements also have the .facelet class and the
-face outline <polygon> elements have the .face class, and may be customised with CSS. For example:
-.face {stroke-linejoin: miter; stroke-width: 0.1;}
-This can be used to make the corners sharp and the face outlines thicker; you get the idea.
-TODO: figure out a sane way to handle changing colour scheme on the fly
-(maybe tag the facelets with a separate class for each colour in addition to setting the fill)
-*/
-
-// colours copied from Kit's modded version of the Python scrambler, but with pale yellow made a bit
-// darker.
-let default_colour_scheme = {
-	U:   '#ffffff',	// U (white)
-	L:   '#57007f',	// L (purple)
-	F:   '#007f0e',	// F (green)
-	R:   '#ff0000',	// R (red)
-	BR:  '#0026ff',	// BR (blue)
-	BL:  '#ffd800',	// BL (yellow)
-	DBR: '#ff82b8',	// DBR (pink)
-	DB:  '#00ff21',	// DB (light green)
-	DBL: '#ff6a00',	// DBL (orange)
-	DFL: '#0094ff',	// DFL (light blue)
-	DFR: '#ffff77',	// DFR (pale yellow)
-	D:   '#808080',	// D (grey)
-};
-
-let face_names = ['U', 'L', 'F', 'R', 'BR', 'BL', 'DBR', 'DB', 'DBL', 'DFL', 'DFR', 'D'];
 
 // return the face on which the loc_ori piece lies
-function map_piece_to_face(loc, ori)
-{
-	ori = (ori%3 + 3)%3;
-	let face = [
-		['U', 'BL', 'BR'], ['U', 'L', 'BL'], ['U', 'F', 'L'], ['U', 'R', 'F'], ['U', 'BR', 'R'],
-		['DB', 'BR', 'BL'], ['BL', 'DBL', 'DB'],
-		['DBL', 'BL', 'L'], ['L', 'DFL', 'DBL'],
-		['DFL', 'L', 'F'], ['F', 'DFR', 'DFL'],
-		['DFR', 'F', 'R'], ['R', 'DBR', 'DFR'], 
-		['DBR', 'R', 'BR'], ['BR', 'DB', 'DBR'],
-		['D', 'DFL', 'DFR'], ['D', 'DBL', 'DFL'], ['D', 'DB', 'DBL'], ['D', 'DBR', 'DB'], ['D', 'DFR', 'DBR'],
-	][loc][ori];
-	return face;
-}
 
 // how much to rotate a facelet (divided by 18 degrees) and where to draw it
-let rotation_amounts = [
-	[0, 3, 7], [8, 1, 5], [6, 9, 3], [4, 7, 1], [2, 5, 9],
-	[0, 9, 1], [9, 0, 2],
-	[2, 7, 9], [7, 2, 4],
-	[4, 5, 7], [5, 4, 6],
-	[6, 3, 5], [3, 6, 8],
-	[8, 1, 3], [1, 8, 0],
-	[5, 8, 2], [3, 6, 0], [1, 4, 8], [9, 2, 6], [7, 0, 4],
-];
 let translation_amounts;
 {
 	let A = Math.sin(Math.PI/5), B = Math.cos(Math.PI/10);
@@ -533,125 +311,6 @@ let translation_amounts;
 	};
 	// trigonometry :(
 }
-
-function create_svg_template(state, colour_scheme)
-{
-	state = state || id;
-	colour_scheme = colour_scheme || default_colour_scheme;
-	let svgns = 'http://www.w3.org/2000/svg';
-	let root = document.createElementNS(svgns, 'svg');
-	root.setAttribute('viewBox', '-2.590 -2.218 9.796 4.936');
-	/*
-	long diagonal = 1
-	short side = sin(pi/5)
-	long side = cos(pi/5)
-	diagonal of pentagon = 2cos(pi/10)
-	viewbox size calculations and stuff:
-	leftmost: -(2cos(pi/10) + sin(pi/5)) = -2.490
-	rightmost: 4sin(pi/5) + 5cos(pi/10) = 7.106
-	topmost: -(2cos(pi/5)^2 + cos(pi/5)) = -2.118
-	bottommost: 2cos(pi/5)+1 = 2.618
-	the aspect ratio is almost exactly 2, which is pretty convenient.
-	*/
-	root.setAttribute('width', '12em');
-	root.setAttribute('height', '6em');
-
-	// create a polygon for each facelet
-	let points = '0,0  -0.475528,-0.654508  0,-1  0.475528,-0.654508';
-	// 0.4755 = sin(pi/5)cos(pi/5) and 0.6545 = cos(pi/5)^2
-	for (let i = 0; i < 20; i++)
-	{
-		for (let j = 0; j < 3; j++)
-		{
-			let face = map_piece_to_face(i, j);
-			let el = document.createElementNS(svgns, 'polygon');
-			let [translate_x, translate_y] = translation_amounts[face];
-			let theta = rotation_amounts[i][j] * 36;
-			el.setAttribute('class', 'facelet loc'+i+'_'+j);
-			el.setAttribute('points', points);
-			el.setAttribute('transform', `translate(${translate_x},${translate_y}) rotate(${theta})`);
-			el.setAttribute('fill', colour_scheme[map_piece_to_face(state[0][i], state[1][i]+j)]);
-			el.setAttribute('stroke', 'currentColor');
-			el.setAttribute('stroke-linejoin', 'round');
-			el.setAttribute('stroke-width', '0.03');
-			root.appendChild(el);
-		}
-	}
-
-	// create a polygon for each face to serve as an outline
-	let face_points = '';
-	for (let i = 0; i < 5; i++)
-	{
-		face_points += Math.sin(Math.PI*2*i/5) + ',' + -Math.cos(Math.PI*2*i/5) + ' ';
-	}
-	for (let face of face_names)
-	{
-		let el = document.createElementNS(svgns, 'polygon');
-		let [translate_x, translate_y] = translation_amounts[face];
-		let theta = (face === 'U' || (face[0] === 'D' && face !== 'D')) ? 0 : 180;
-		el.setAttribute('points', face_points);
-		el.setAttribute('transform', `translate(${translate_x},${translate_y}) rotate(${theta})`);
-		el.setAttribute('class', 'face');
-		el.setAttribute('fill', 'none');
-		el.setAttribute('stroke', 'currentColor');
-		el.setAttribute('stroke-linejoin', 'round');
-		el.setAttribute('stroke-width', '0.05');
-		root.appendChild(el);
-	}
-
-	return root;
-}
-
-function draw_state(svgel, state, colour_scheme)
-{	
-	colour_scheme = colour_scheme || default_colour_scheme;
-	if (!svgel) return create_svg_template(state, colour_scheme);
-	for (let i = 0; i < 20; i++)
-	{
-		for (let j = 0; j < 3; j++)
-		{
-			let el = svgel.querySelector('.loc'+i+'_'+j);
-			el.setAttribute('fill', colour_scheme[map_piece_to_face(state[0][i], state[1][i]+j)]);
-		}
-	}
-	return svgel;
-}
-
-/* Solver logic
-For scrambling purposes, we have these two options:
-(i) generate a random state, solve it, then invert the solution
-(ii) generate a random state, solve it, return the solution as is
-The former has a caveat that "solve" really means "solve into the scramble orientation". If we solve
-into an arbitrary orientation, the result is a random-modulo-orientation state, in that the scramble
-has the same relative positions of pieces as the random state, but possibly with the wrong colours.
-The latter works here because the kilominx states form a group and taking the inverse doesn't affect
-the randomness, and we do have the freedom to solve into any orientation. Since the WCA regs specify
-that scrambled puzzles are delivered to the competitor in an arbitrary orientation, we may take this
-to be equivalent to right-composing with a random rotation, and this would "cancel out" any rotation
-showing up at the end of the solution.
-Solving to orientations other than white-top-green-front saves a few moves (~2.2 moves by testing 10
-orientations out of 60), but it's also proportionally slower for marginal gain.
-Phases used:
-Phase 1: get the five grey corners out of the U layer (6-gen), then rotate.
-Phase 2: form the U layer out of the grey corners (6-gen), then rotate.
-Phase 3: solve five more corners at the back/left to reduce to <U,R,F> (6-gen).
-Phase 4: finish last three faces (3-gen).
-Phase 1 is a skip (all five grey corners are already not on the D layer) ~19% of the time, and takes
-just one flip ~18% of the time, so there's a ~37% chance this step is basically trivial. With colour
-neutrality, this could be something like 99.9% trivial.
-Phases 2 and 3 make use of the same permutation/orientation move tables. Ideally, we'd use only one,
-but it would be kinda terrible for a web app to eat hundreds of megabytes of memory. Luckily for us,
-IDA* settles these phases quickly enough that it doesn't really matter. Unluckily for us, this makes
-the code a bit more complicated.
-Phase 4 is the problematic one, with 35.7 billion states. We use three pruning tables:
-- orientation (3^9 = 19683 states)
-- permutation (10!/2 = 1814400 states)
-- list of states up to 7 moves (3565896 states)
-We don't even need to store the actual distances for the almost-solved states; we just let IDA* work
-its magic with the other pruning tables. Basically, if a state is in the list, the heuristic reports
-a lower bound of 0, and if it's not, it reports a lower bound of 8.
-*/
-
 function solve_phase1(state)
 {
 	// we don't care about orientation.
@@ -762,14 +421,6 @@ function index_phase4(state)
 	return [index_o, evenpermutation_to_index(perm)];
 }
 
-function solve_phase4(state)
-{
-	let mtables = [generate_phase4_orientation_mtable(),
-	               generate_phase4_permutation_mtable()];
-	let ptables = [generate_phase4_orientation_ptable(),
-	               generate_phase4_permutation_ptable()];
-	return ida_solve(index_phase4(state), mtables, ptables);
-}
 
 function solve_phase4_fast(state)
 {
@@ -790,29 +441,6 @@ function solve(state)
 	return sol;
 }
 
-function cn_solve(state)
-{
-	// Solve with partial colour neutrality. We don't want to check all 120 cases, so we look only
-	// at <y, flip>-neutrality, which has 10 cases.
-	let sol_lengths = [], shortest_sol, shortest_sol_length = 999999;
-	for (let x = 0; x < 2; x++)
-	{
-		for (let y = 0; y < 5; y++)
-		{
-			let sol = solve(state);
-			sol_lengths.push(sol.length);
-			if (shortest_sol_length > sol.length)
-			{
-				shortest_sol_length = sol.length;
-				shortest_sol = sol;
-			}
-			state = compose_o(move_y, state);
-		}
-		state = compose_o(move_x2, state);
-	}
-	console.log(`solution lengths: ${sol_lengths.join(', ')}`);
-	return shortest_sol;
-}
 
 let tables = {};
 
@@ -964,7 +592,7 @@ function generate_phase4_orientation_mtable()
 function generate_phase4_permutation_mtable()
 {
 	if (tables.phase4pm) return tables.phase4pm;
-	const HALFFACT10 = factorial(10) / 2, n = 10;
+	const HALFFACT10 = factorial(10) / 2;
 	let pre = [0, 1, 2, 3, 4, -1, -1, -1, -1, 5, 6, 7, 8, 9];
 	let post = [0, 1, 2, 3, 4, 9, 10, 11, 12, 13];
 	let move_permutations = [
@@ -1046,47 +674,6 @@ function binary_search(A, x)
 		else hi = mid;
 	}
 	return x === A[lo] || x === A[hi];
-}
-
-function cache_all_tables()
-{
-	let time = +new Date, splits = [time];
-	console.log('generating phase 2/3 move tables...');
-	generate_phase23_orientation_mtable();
-	generate_phase23_permutation_mtable();
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('generating phase 2 pruning tables...');
-	generate_phase2_orientation_ptable();
-	generate_phase2_permutation_ptable();
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('generating phase 3 pruning tables...');
-	generate_phase3_orientation_ptable();
-	generate_phase3_permutation_ptable();
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('generating phase 4 move tables...');
-	generate_phase4_orientation_mtable();
-	generate_phase4_permutation_mtable();
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('generating phase 4 pruning tables...');
-	generate_phase4_orientation_ptable();
-	generate_phase4_permutation_ptable();
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('generating phase 4 bonus pruning table...');
-	generate_phase4_near_ptable_list(PHASE4_THRESHOLD);
-	splits.push(+new Date);
-	console.log(`done ${((splits[splits.length-1] - splits[splits.length-2])/1e3).toFixed(3)}`);
-	
-	console.log('total elapsed: ' + ((splits[splits.length-1]-splits[0]) / 1000).toFixed(3));
 }
 
 function bfs(mtable, goal_states)
@@ -1199,250 +786,4 @@ function phase4_ida_search(indices, bound, last, mtable_o, mtable_p, ptable_o, p
 		}
 	}
 	return;
-}
-
-function* phase4_ida_solve_gen(indices)
-{
-	let mtable_o = generate_phase4_orientation_mtable();
-	let mtable_p = generate_phase4_permutation_mtable();
-	let ptable_o = generate_phase4_orientation_ptable();
-	let ptable_p = generate_phase4_permutation_ptable();
-	let ptable_n = generate_phase4_near_ptable_list(PHASE4_THRESHOLD);
-	let bound = Math.max(ptable_o[indices[0]], ptable_p[indices[1]]);
-	while (true)
-	{
-		yield* phase4_ida_search_gen(indices, bound, -1, mtable_o, mtable_p, ptable_o, ptable_p, ptable_n);
-		bound++;
-	}
-}
-
-function* phase4_ida_search_gen(indices, bound, last, mtable_o, mtable_p, ptable_o, ptable_p, ptable_n)
-{
-	let heuristic = Math.max(ptable_o[indices[0]], ptable_p[indices[1]]);
-	if (heuristic > bound) return;
-	if (heuristic <= PHASE4_THRESHOLD && !binary_search(ptable_n, indices[0] + 19683 * indices[1])) heuristic = PHASE4_THRESHOLD + 1;
-	if (heuristic > bound) return;
-	if (bound === 0 || heuristic === 0) yield [];
-	for (let m = 0; m < 3; m++)
-	{
-		if (m === last) continue;
-		let new_indices = indices.slice();
-		for (let r = 1; r < 5; r++)
-		{
-			new_indices[0] = mtable_o[new_indices[0]][m];
-			new_indices[1] = mtable_p[new_indices[1]][m];
-			let subpath_gen = phase4_ida_search_gen(new_indices, bound-1, m, mtable_o, mtable_p, ptable_o, ptable_p, ptable_n);
-			while (true)
-			{
-				let {value: subpath, done} = subpath_gen.next();
-				if (done) break;
-				yield [[m, r]].concat(subpath);
-			}
-		}
-	}
-}
-
-/* Additional solving logic for the hybrid scrambler
-Rather than being a purely random-move or random-state scramble (the former isn't random enough, but
-the latter is too slow), we fully randomise the locations of the white pieces and of the grey pieces
-then apply a bunch of random moves afterwards.
-This is in the sense that the C(20,10,5,5) = 46558512 possible combinations of where the white, grey
-and E-slice pieces are (without distinguishing between the white pieces, etc.) are equally likely.
-Corner orientation is effectively randomised by doing at least 8 random moves on each hemisphere, so
-for all intents and purposes, this should be as good as a random-state scramble.
-*/
-
-function generate_hs_mtable()
-{
-	if (tables.hsm) return tables.hsm;
-	const C20_5 = C(20, 5); // = 15504
-	let mtable = Array(C20_5);
-	for (let i = 0; i < C20_5; i++)
-	{
-		mtable[i] = Array(7);
-		let comb = index_to_comb(i, 5, 20);
-		for (let m = 0; m < 7; m++)
-		{
-			let new_comb = compose(comb, moves[m][0]);
-			mtable[i][m] = comb_to_index(new_comb);
-		}
-	}
-	return tables.hsm = mtable;
-}
-
-function generate_hs_u_ptable()
-{
-	if (tables.hsup) return tables.hsup;
-	let mtable = generate_hs_mtable();
-	return tables.hsup = bfs(mtable, [15503]);
-}
-
-function generate_hs_d_ptable()
-{
-	if (tables.hsdp) return tables.hsdp;
-	let mtable = generate_hs_mtable();
-	return tables.hsdp = bfs(mtable, [0]);
-}
-
-function index_hs(state)
-{
-	let p = state[0];
-	return [comb_to_index(p.map(x => +(x < 5))), comb_to_index(p.map(x => +(x >= 15)))];
-}
-
-// this is too unpredictably slow
-// (obv we could generate a full pruning table, but that defeats the purpose of fast initialisation)
-function solve_hs(state)
-{
-	let mtables = Array(2).fill(generate_hs_mtable());
-	let ptables = [generate_hs_u_ptable(),
-	               generate_hs_d_ptable()];
-	return ida_solve(index_hs(state), mtables, ptables);
-}
-
-// this gives sequences ~2 moves longer on average, but is way faster
-function solve_hs_twophase(state)
-{
-	let mtable = generate_hs_mtable();
-	let u_ptable = generate_hs_u_ptable();
-	let d_ptable = generate_hs_d_ptable();
-	let indices = index_hs(state);
-	let sol1;
-	/*
-	if (u_ptable[indices[0]] < d_ptable[indices[1]]) sol1 = ida_solve([indices[0]], [mtable], [u_ptable]);
-	else sol1 = ida_solve([indices[1]], [mtable], [d_ptable]);
-	// don't do this because it'd give solutions starting with flip pretty often.
-	*/
-	sol1 = ida_solve([indices[1]], [mtable], [d_ptable]);
-	let s1 = apply_move_sequence(state, sol1);
-	let sol2 = ida_solve(index_hs(s1), [mtable, mtable], [u_ptable, d_ptable]);
-	return sol1.concat(sol2);
-}
-
-function generate_hybrid_scramble()
-{
-	let move_sequence = [];
-	let sort_seq = solve_hs_twophase(random_state());
-	for (let [m, r] of sort_seq)
-	{
-		let period = m === 6 ? 2 : 5;
-		move_sequence.unshift([m, (period - r) % period]);
-	}
-
-	// TODO: remove possible move cancellations between the random-state and random-move phases
-	return move_sequence.concat(generate_random_move_scramble(2, 9));
-}
-
-function generate_fullseparate_mtable()
-{
-	if (tables.fsm) return tables.fsm;
-	const C20_10 = C(20, 10); // = 184756
-	const C19_9 = C(19, 9); // = 92378
-	let moves12 = moves.slice(0, 6);
-	moves12 = moves12.concat(moves12.map(move => compose_o(compose_o(move_x2, move), move_x2)));
-	// get all 12 face moves by conjugating the six "top half" moves with a flip
-	let moves15 = moves12.concat([move_x2, move_y, move_rot]);
-	let mtable = Array(C20_10*2);
-	let mtable15 = Array(C20_10*2);
-	for (let i = 0; i < C20_10; i++)
-	{
-		mtable[i*2] = Array(12);
-		mtable[i*2+1] = Array(12);
-		mtable15[i*2] = Array(15);
-		mtable15[i*2+1] = Array(15);
-		let comb = index_to_comb(i, 10, 20);
-		let perm = [];
-		for (let j = 0, k = 0; j < 20; j++)
-		{
-			if (comb[j] === 0) perm[j] = -1;
-			else perm[j] = k++;
-		}
-		for (let m = 0; m < 15; m++)
-		{
-			let new_perm = compose(perm, moves15[m][0]);
-			let new_comb = compose(comb, moves15[m][0]);
-			let parity = permutation_parity(new_perm.filter(x => x >= 0));
-			let I = comb_to_index(new_comb);
-			mtable15[i*2][m] = I*2 + parity;
-			mtable15[i*2+1][m] = I*2 + (parity^1);
-			if (m < 12)
-			{
-				mtable[i*2][m] = I*2 + parity;
-				mtable[i*2+1][m] = I*2 + (parity^1);
-			}
-		}
-	}
-	tables.fsm = mtable;
-	tables.fsm15 = mtable15;
-	return mtable;
-}
-
-function generate_fullseparate_ptable()
-{
-	if (tables.fsp) return tables.fsp;
-	let mtable = generate_fullseparate_mtable();
-	/*
-	let separations = [
-		[0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  1, 1, 1, 1, 1,  1, 1, 1, 1, 1],
-		[0, 0, 0, 0, 0,  1, 1, 0, 0, 0,  0, 0, 1, 1, 1,  1, 1, 1, 1, 1],
-		[0, 0, 0, 0, 0,  1, 1, 1, 1, 0,  0, 0, 0, 0, 1,  1, 1, 1, 1, 1],
-		[0, 0, 0, 0, 0,  0, 1, 1, 1, 1,  1, 0, 0, 0, 0,  1, 1, 1, 1, 1],
-		[0, 0, 0, 0, 0,  0, 0, 0, 1, 1,  1, 1, 1, 0, 0,  1, 1, 1, 1, 1],
-		[0, 0, 1, 1, 1,  0, 0, 0, 0, 1,  1, 1, 1, 1, 0,  1, 0, 0, 0, 1],
-		[1, 0, 0, 1, 1,  1, 0, 0, 0, 0,  0, 1, 1, 1, 1,  0, 0, 0, 1, 1].map(x => 1-x),
-		[1, 1, 0, 0, 1,  1, 1, 1, 0, 0,  0, 0, 0, 1, 1,  0, 0, 1, 1, 0].map(x => 1-x),
-		[1, 1, 1, 0, 0,  1, 1, 1, 1, 1,  0, 0, 0, 0, 0,  0, 1, 1, 0, 0].map(x => 1-x),
-		[0, 1, 1, 1, 0,  0, 0, 1, 1, 1,  1, 1, 0, 0, 0,  1, 1, 0, 0, 0],
-	];
-	*/
-	let goal_states = [0], l = 1;
-	while (true)
-	{
-		for (let ind of goal_states)
-		{
-			for (let m = 12; m < 15; m++)
-			{
-				let new_ind = tables.fsm15[ind][m];
-				if (goal_states.indexOf(new_ind) === -1)
-				{
-					goal_states.push(new_ind);
-					goal_states.sort((x,y) => x-y); // slow but w/e
-				}
-			}
-		}
-		if (goal_states.length === l) break;
-		l = goal_states.length;
-	}
-	print(goal_states.toSource());
-	return tables.fsp = bfs5(mtable, goal_states);
-}
-
-function bfs5(mtable, goal_states)
-{
-	let N = mtable.length;
-	let nmoves = mtable[0].length;
-	let ptable = Array(N).fill(-1);
-	let queue = goal_states.slice(), new_queue = [];
-	let depth = 0;
-	while (queue.length > 0)
-	{
-		new_queue.length = 0;
-		for (let state of queue)
-		{
-			if (ptable[state] !== -1) continue;
-			ptable[state] = depth;
-			for (let move_index = 0; move_index < nmoves; move_index++)
-			{
-				let new_state = mtable[state][move_index];
-				for (let r = 1; r <= 4; r++)
-				{
-					if (r === 1 || r === 4) new_queue.push(new_state);
-					new_state = mtable[new_state][move_index];
-				}
-			}
-		}
-		[queue, new_queue] = [new_queue, queue];
-		depth += 1;
-	}
-	return ptable;
 }
