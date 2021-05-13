@@ -4,7 +4,7 @@
   "description": "A Discord bot made for the Cubing at Home server.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --optimize_for_size --max_old_space_size=460 index.js",
     "update": "git push origin main && git push heroku main"
   },
   "author": "louismeunier",
