@@ -19,6 +19,7 @@ function execute(message, args) {
 
 module.exports = {
     name: "burger",
+    aliases: ["aaron"],
     cooldown: 15,
     execute
 }
