@@ -27,7 +27,7 @@ function execute(message, args) {
                     .then(users => {
                         const numPages = Math.ceil(users.length/3);
                         var pages = [];
-                        console.log(numPages);
+                        //console.log(numPages);
                         for (i=0;i<numPages;i++) {
                             var fields = [];
                             for (j=0;j<3;j++) {
@@ -38,11 +38,11 @@ function execute(message, args) {
                                     })
                                 }
                             }
-                            console.log(pages);
+                            //console.log(pages);
                             pages.push(cahEmbed(":hamburger: Burger Leaderboard :hamburger:", fields));
                         }
                         paginationEmbed(message, pages)
-                        .then(val => console.log("success"))
+                        //.then(val => console.log("success"))
                         .catch(err => console.log(err))
                     })
                     .catch(err => console.log(err))

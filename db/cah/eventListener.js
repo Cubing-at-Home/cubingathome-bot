@@ -38,7 +38,7 @@ async function addRoundListener(client) {
     const COMP_ID = "cah2.3";
     const initialData = await cahDB.collection("competitions").doc(COMP_ID).get();
     let previousRounds = initialData.data().rounds;
-    console.log(previousRounds)
+    //console.log(previousRounds)
 
     cahDB.collection("competitions").doc(COMP_ID)
         .onSnapshot(doc => {

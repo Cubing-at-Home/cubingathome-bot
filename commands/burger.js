@@ -4,7 +4,7 @@ const getUsername = require("../utils/discord-api").getUsername;
 function execute(message, args) {
     burger(message)
         .then(data => {
-            console.log(data);
+            //console.log(data);
             if (data == "set") {
                 message.channel.send("🍔")
             } else {

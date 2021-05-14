@@ -861,7 +861,7 @@ function simplify_move_sequence(move_sequence, make_noise=false)
 	}
 	if (make_noise && ''+move_sequence !== ''+simplified)
 	{
-		console.log(`simplified ${move_sequence} to ${simplified}`);
+		//console.log(`simplified ${move_sequence} to ${simplified}`);
 	}
 	return simplified;
 }
