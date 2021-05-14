@@ -5,7 +5,7 @@ adapted from https://gist.github.comtorchlight/994d1faf4359f969456bb47415c878ed
 */
 
 module.exports = function generateKilo() {
-	return stringify_move_sequence(generate_random_state_scramble());
+	return stringify_move_sequence(generate_random_state_scramble())
 }
 
 let PHASE4_THRESHOLD = 7;
@@ -287,30 +287,6 @@ function generate_random_state_scramble()
 	return solve(random_state());
 }
 
-
-// return the face on which the loc_ori piece lies
-
-// how much to rotate a facelet (divided by 18 degrees) and where to draw it
-let translation_amounts;
-{
-	let A = Math.sin(Math.PI/5), B = Math.cos(Math.PI/10);
-	let C = Math.cos(Math.PI/5), D = Math.sin(Math.PI/10);
-	translation_amounts = {
-		'U': [0, 0],
-		'L': [-A-B, C-D],
-		'F': [0, 2*C],
-		'R': [A+B, C-D],
-		'BR': [B, -1-D],
-		'BL': [-B, -1-D],
-		'DBR': [2*A+2*B, 0],
-		'DB': [3*A+3*B, -C-D],
-		'DBL': [4*A+4*B, 0],
-		'DFL': [3*A+4*B, 1+C],
-		'DFR': [3*A+2*B, 1+C],
-		'D': [3*A+3*B, C-D],
-	};
-	// trigonometry :(
-}
 function solve_phase1(state)
 {
 	// we don't care about orientation.
