@@ -23,7 +23,8 @@ function prettyTime(time) {
     //time is centi
     const minutes = Math.floor(time/(60 * 100));
     const seconds = Math.floor((time-(60*100*minutes))/100);
-    const cent = Math.floor((time-((60*100*minutes)+(100*seconds))));
+    let cent = Math.floor((time-((60*100*minutes)+(100*seconds))));
+    if (cent < 10) cent = `0${cent}`;
     //console.log(`${minutes}:${seconds}.${cent}`);
     if (minutes>0) {
         return `${minutes}:${seconds}.${cent}`;
