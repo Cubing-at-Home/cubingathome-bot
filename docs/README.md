@@ -1,11 +1,12 @@
 # BottingAtHome - Commands Documentation
 
-## `setprefix $prefix`
+### General Format: `s!command $option(s)`
+## `s!setprefix $prefix`
 
 The default prefix for the bot is `s!`. Certain restrictions apply to the `$prefix` (regex: `/([a-zA-z])?[!\$&^|\*\?]$/gm`). Must have administrator role to use this.
 
 
-## `scramble $event $num`
+## `s!scramble $event $num`
 
 Can also be called with `scr`, or just the event name (ie `s!3`). The code used to generate these scrambles is forked from CSTimer, and as such, most event scrambles supported there are supported in BottingAtHome.
 
@@ -53,26 +54,26 @@ The type of scramble. Can be any of the following:
 
 The number of scrambles. It is capped at 5 for all events except for mbld.
 
-## `wca $wca_id`
+## `s!wca $wca_id`
 
 Get a basic overview of someone's WCA profile. `$wca_id` must be a valid WCA ID, ie) 2016MEUN01.
 
-## `invite`
+## `s!invite`
 
 Sends you a dm with an link to add BottingAtHome to your own server.
 
-## `help`
+## `s!help`
 
 Sends you a link to this page.
 
-## `suggest $suggestions`
+## `s!suggest $suggestions`
 
 Send me a suggestion about how to improve BottingAtHome!
 
-## `suggestions`
+## `s!suggestions`
 
 Sends a list of your current suggestions to BottingAtHome. Once they are either added or denied, your suggestion will be deleted from the list.
 
-## `changes`
+## `s!changes`
 
 Sends a list of recent updates to BottingAtHome.
