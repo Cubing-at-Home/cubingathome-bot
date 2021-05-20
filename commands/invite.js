@@ -1,10 +1,15 @@
 const error = require("../utils/components/error");
 const Embed = require("../utils/components/cahEmbed");
 
+function invite() {
+    const URL = "https://discord.com/api/oauth2/authorize?client_id=809433538851897404&permissions=2148002880&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=bot%20applications.commands";
+    const Invite = Embed("Link", [{name:"Thanks for inviting me! <3", value: URL}]);
+    return Invite;
+}
+
 function execute(message, args) {
     //better way to do this??
-    const URL = "https://discord.com/api/oauth2/authorize?client_id=809433538851897404&permissions=387136&scope=bot";
-    const Invite = Embed("Link", [{name:"Thanks for inviting me! <3", value: URL}]);
+    const Invite = invite();
     message.author.send(Invite)
         .then(_ => {
             message.reply("DM'ed you the link!")
@@ -22,7 +27,6 @@ function execute(message, args) {
         })
 
 }
-
 
 module.exports = {
     name: "invite",

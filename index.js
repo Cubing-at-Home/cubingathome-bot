@@ -12,7 +12,7 @@ client.commands = new Discord.Collection();
 
 const cooldowns = new Discord.Collection();
 
-//load in commands
+//load in commands +  slash commands
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -20,10 +20,27 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+
 //on
-client.on("ready", () => {
+client.once("ready", async () => {
     //init the round listener
     //initListener(client);
+
+    //guild-only slash commands
+    //will maybe add global commands later?
+    for (const file of commandFiles) {
+        const command = require(`./commands/${file}`);
+        if (command.slash) {
+            console.log(`Loading in /${command.name}...`)
+            client.api.applications(client.user.id).guilds("790303317003206675").commands.post(
+                {
+                    data: command.slash.commandData
+                }
+            )
+        }
+    }
+    
+    
     console.log("Logged in as " + client.user.tag);
     client.user.setActivity(
         "'The Speed Cubers' on Netflix",
@@ -40,6 +57,20 @@ client.on("ready", () => {
     
 })
 
+client.ws.on("INTERACTION_CREATE", async interaction => {
+    const name = interaction.data.name;
+    console.log(interaction.data.name);
+    const command = client.commands.get(name)
+                    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+    if (!command.slash) return;
+    const response = await command.slash.slashFunc(interaction);
+
+    await client.api.interactions(interaction.id, interaction.token).callback.post({data: {
+        type: 4,
+        data: response
+      }})
+})
+
 client.on("guildCreate", guild => {
     console.log("Joined a new guild: " + guild.name);
     createGuild(guild);
@@ -51,7 +82,7 @@ client.on("guildDelete", guild => {
     deleteGuild(guild);
 })
 
-client.on("message" , msg => {
+client.on("message" , async msg => {
     //handle invalid senders
     if (msg.author.bot) return;
     if (msg.guild) {

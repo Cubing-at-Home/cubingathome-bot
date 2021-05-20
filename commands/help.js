@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 //const PREFIX = process.env.NODE_ENV === 'production' ? require("../config.json").prefix : require("../config.json").devPrefix;
 const error = require("../utils/components/error")
-function execute(message, args) {
+
+function help() {
     const colors = [
         "#FFFFFD",
         "#ff0000",
@@ -21,14 +22,18 @@ function execute(message, args) {
     .addFields(
         {name: "Commands:", value: "https://github.com/Cubing-at-Home/cubingathome-bot/tree/main/docs/README.md"}
     )
+    return helpEmbed;
+}
 
+function execute(message, args) {
+    const helpEmbed = help();
     message.author.send(helpEmbed)
         .then(
             _ => {
                 message.reply("DM'ed!")
                     .then(msg => {
-                        message.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
-                        msg.delete({ timeout: 5000 }).catch(err => error("Failed to delete",err))
+                        message.delete({ timeout: 5000 }).catch(err => console.log("Failed to delete"))
+                        msg.delete({ timeout: 5000 }).catch(err => console.log("Failed to delete"))
                     })
             }
         )
@@ -38,10 +43,20 @@ function execute(message, args) {
     
 }
 
+const slash = {
+    commandData: {
+        'name': 'help',
+        'description': 'Get info about b@h'
+    },
+    async slashFunc(interaction) {
+        return { embeds: [help()] }
+    }
+}
 module.exports = {
     name: "help",
     aliases: ["h"],
     cooldown: 5,
     description: "Returns this message",
+    slash,
     execute
 }

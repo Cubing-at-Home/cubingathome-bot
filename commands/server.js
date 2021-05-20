@@ -1,5 +1,5 @@
 const cahEmbed = require("../utils/components/cahEmbed")
-
+//won't be slashing this
 module.exports = {
 	name: 'server', 
 	description: 'Server stats',

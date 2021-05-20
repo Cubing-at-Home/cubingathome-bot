@@ -1,23 +1,24 @@
 const db = require("./connect").defaultDB;
 
-async function burger(message) {
-    const guildId = message.guild.id;
+async function burger(authorID, guildID) {
+    //needs guild id and author id
+    //const guildId = message.guild.id;
 
     let res = "";
     await db
         .collection("GuildSettings")
-        .doc(guildId)
+        .doc(guildID)
         .get()
         .then(async guildData => {
             const burgerLast = guildData.data().burger;
             if (new Date().getTime() > burgerLast) {
                 const oldLeaderboard = guildData.data().burgerLeaderboard ? guildData.data().burgerLeaderboard : {};
-                oldLeaderboard[message.author.id] 
-                    ? oldLeaderboard[message.author.id] ++
-                    : oldLeaderboard[message.author.id] = 1 
-                await db.collection("GuildSettings").doc(guildId).update({
+                oldLeaderboard[authorID] 
+                    ? oldLeaderboard[authorID] ++
+                    : oldLeaderboard[authorID] = 1 
+                await db.collection("GuildSettings").doc(guildID).update({
                     burger: new Date().getTime() + (6 * 60 * 60 * 1000),
-                    burgerCaller: message.author.id,
+                    burgerCaller: authorID,
                     burgerLeaderboard: oldLeaderboard
                 })
                 res = "set"

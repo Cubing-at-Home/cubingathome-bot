@@ -1,5 +1,6 @@
 const error = require("../utils/components/error");
 
+//utility functions
 const secondsReg = new RegExp(/^([0-5])?([0-9])?\.[0-9]([0-9])?[0-9]?$/);
 const minutesReg = new RegExp(/^[0-9][0-9]?\:([0-5])?([0-9])?\.[0-9][0-9]?[0-9]?$/);
 
@@ -48,27 +49,79 @@ function mo3(arr) {
     })
     return "**mo3: ** "+prettyTime(Math.round(sum/3));
 }
-function execute(message, args) {
-    //(y)y.x(x)(x)
+
+//main function
+function average(args) {
     const timeArray = args.length === 1 
     ? args[0].split(",").map(t => t = t.trim()).filter(t=> secondsReg.test(t) || minutesReg.test(t))
     : (args.length == 3 || args.length == 5) ? args.filter(t => secondsReg.test(t) || minutesReg.test(t)) : null;
-    if (timeArray.length!==3 && timeArray.length!==5) {
-        error(message, "**avg** currently only supports ao5 and mo3 with valid time inputs of *(mm:(s))s.mm(m)*");
-        return;
+    if (!timeArray && timeArray.length!==3 && timeArray.length!==5) {
+        const err = new Error("Make sure you are using valid times of *mm:ss.mm(m)* or *ss.mm*")
+        throw err;
     }
     if (timeArray.length == 5) {
-        message.channel.send(ao5(timeArray))
+        return ao5(timeArray)
     } else if (timeArray.length == 3) {
-        message.channel.send(mo3(timeArray))
+        return mo3(timeArray)
     } else {
-        error(message, "Make sure you are using valid times of *mm:ss.mm(m)* or *ss.mm*");
+        const err = new Error("avg only supports ao5 and mo3");
+        throw err;
     }
 }
 
+//separate out execute(regular command call) vs slash command call...
+function execute(message, args) {
+    try {
+        message.channel.send(average(args));
+    } catch (err) {
+        error(message, err.message)
+    }
+}
+
+//slash data
+const slash = {
+    commandData: {
+        name: 'avg',
+        description: 'Calculate an mo3 or ao5',
+        options: [{
+          name: 'time1',
+          type: 3,
+          description: '(xx:)yy.zz',
+          required: true,
+        },
+        {
+            name: 'time2',
+            type: 3,
+            description: '(xx:)yy.zz',
+            required: true,
+        },
+        {
+            name: 'time3',
+            type: 3,
+            description: '(xx:)yy.zz',
+            required: true,
+        },
+        {
+            name: 'time4',
+            type: 3,
+            description: '(xx:)yy.zz',
+            required: false,
+        },
+        {
+            name: 'time5',
+            type: 3,
+            description: '(xx:)yy.zz',
+            required: false,
+        }]
+    },
+    async slashFunc(interaction) {
+        return {'content': average(interaction.data.options.map(e => e.value))};
+    }
+}
 module.exports = {
     name: "avg",
     description: "Calculate a05's and mo3's with ease!",
     cooldown: 5,
+    slash,
     execute
 }

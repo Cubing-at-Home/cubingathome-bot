@@ -1,5 +1,6 @@
 const error = require("../utils/components/error");
 const { updateGuildSettings } = require("../db/guilds");
+//won't be slashing this either, just because of the irony it causes lol
 
 function execute(message, args) {
     //must be admin

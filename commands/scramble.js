@@ -29,6 +29,8 @@ const scrTypes = [
     {imageCode:"pyram", vizCode:"pyrso", scrCode:"pyram",aliases:["pyraminx","pyram","pyra","p"],displayCode:'Pyraminx'},
     {imageCode: "clock", vizCode:"clkwca",scrCode:"clock",aliases:["clock","c"],displayCode:"Clock"},
     {imageCode:"skewb",vizCode: "skbo",scrCode:"skewb",aliases:["skewb"],displayCode:"Skewb"},
+    {imageCode: "fto", scrCode:"fto", aliases:["fto"], displayCode:"FTO"},
+    {imageCode: "kilo", scrCode: "kilo", aliases:["kilo","kibi","kilominx","kibiminx"], displayCode:"Kilominx"},
     {imageCode: "333",  vizCode:"333", scrCode: "lsll", aliases:["lsll"],displayCode:"LSLL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "zbll", aliases:["zbll"],displayCode:"ZBLL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "cll", aliases:["cll","coll"],displayCode:"COLL", algCubingCode:"3x3x3"},
@@ -43,18 +45,15 @@ const scrTypes = [
     {imageCode: "333",  vizCode:"333", scrCode: "ell", aliases:["ell"],displayCode:"ELL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "cmll", aliases:["cmll"],displayCode:"CMLL", algCubingCode:"3x3x3"},
     {imageCode: "333",  vizCode:"333", scrCode: "pll", aliases:["pll"],displayCode:"PLL",algCubingCode:"3x3x3"},
-    {imageCode: "333mbf",  vizCode:"333", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"},
-    {imageCode: "fto", scrCode:"fto", aliases:["fto"], displayCode:"FTO"}//,
-    //{imageCode: "kilo", scrCode: "kilo", aliases:["kilo","kibi","kilominx","kibiminx"], displayCode:"Kilominx"}
+    {imageCode: "333mbf",  vizCode:"333", scrCode: "bld", aliases:["mbld","333mbld","3x3mbld","33mbld"], displayCode: "MBLD", algCubingCode:"3x3x3"}
 ]
 
-function execute(message, args) {
+function getScrambles(args) {
     //validate args
     
     //check alternate command calling
     if (args.length === 0) {
-        error(message, "Missing arguments!")
-        return;
+        throw new Error("Number of scrambles not specified")
     }
 
     
@@ -62,15 +61,13 @@ function execute(message, args) {
     const scrType = scrTypes.filter(scrType => scrType.aliases.indexOf(scrQuery)!==-1)[0];
 
     if (!scrType) {
-        error(message, "Invalid scramble type!");
-        return;
+        throw new Error("Invalid scramble type!");
     };
 
     let scrNum = scrType.imageCode==="333mbf" ? args[1] || 3 : args[1] || 1;
 
     if (isNaN(scrNum)) {
-        error(message, "Number of scrambles must be an integer!");
-        return;
+        throw new Error("Number of scrambles must be an integer!");
     }
 
     if (scrNum > 5 && scrType.imageCode!="333mbf") scrNum = 5;
@@ -78,8 +75,7 @@ function execute(message, args) {
 
     if (!scrType) {
         //handle invalid scramble query
-        error(message, `Invalid scramble type, **${scrQuery}**`);
-        return;
+        throw new Error(`Invalid scramble type, **${scrQuery}**`);
     } 
 
     const scrambleFunc = scr[scrType.scrCode];
@@ -100,7 +96,16 @@ function execute(message, args) {
     const icon = new MessageAttachment(`utils/icons/${icons[scrType.imageCode]}`,`${icons[scrType.imageCode]}`)
     response.attachFiles(icon)
     response.setThumbnail(`attachment://${icons[scrType.imageCode]}`)
-    //scramble view logic 
+    return response;
+}
+
+function execute(message, args) {
+    try {
+        
+    const response = getScrambles(args);
+    message.channel.send(response)
+    //Temporarily remove previews for the sake of universal slash commands
+    /* 
     message.channel.send(response)
         .then(sentMsg => {
             if (!scrType.vizCode) return;
@@ -129,7 +134,6 @@ function execute(message, args) {
             var previousMessage;
             var previousEmoji;
             collector.on("collect", (reaction, user) => {
-               //!NEED TO CHANGE CODE TO STORE SCRAMBLES RATHER THAN REGENERATE THEM EVERY TIME THE REACTION CHANGES
                 //instantly remove react so you can add more after
                 reaction.users.remove(user.id);
 
@@ -168,14 +172,52 @@ function execute(message, args) {
                 sentMsg.reactions.removeAll();
             })
         })
+        */
+    } catch (err) {
+        error(message,err);
+    }  
+}
+
+const slash = {
+    commandData: {
+        name: "scramble",
+        description: "Get scrambles for a wide variety of events",
+        options: [
+            {
+                name: "event",
+                description: "Type of scramble",
+                type: 3,
+                required: true,
+                choices: scrTypes.slice(0,18).map(scr => {return {
+                    name: scr.displayCode,
+                    value: scr.scrCode
+                }})
+            },
+            {
+                name: "amount",
+                type: 4,
+                description: "Number of scrambles to get, max 5 min 1",
+                required: false
+            }
+        ]
+    },
+    async slashFunc(interaction) {
+        try {
+            //console.log(interaction)
+            const response = getScrambles(interaction.data.options.map(e => { return e.value }));
+            return { embeds: [response] }
+        } catch (err) {
+            return { content: err.message }
+        }
     }
-
-
+}
+//currently, scramble previews won't work for slashes, and refactoring that may be a pain in the yeah
 module.exports = {
     name:"scramble",
     aliases: ["scr"],
     scrTypes: scrTypes,
     cooldown: 2.5,
     description: "Generates Rubik's Cube scrambles",
+    slash,
     execute
 }
