@@ -46,7 +46,7 @@ function execute(message, args) {
 const slash = {
     commandData: {
         'name': 'help',
-        'description': 'Get info about b@h'
+        'description': 'Get info about BottingAtHome'
     },
     async slashFunc(interaction) {
         return { embeds: [help()] }

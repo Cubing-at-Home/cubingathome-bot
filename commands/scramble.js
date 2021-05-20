@@ -181,7 +181,7 @@ function execute(message, args) {
 const slash = {
     commandData: {
         name: "scramble",
-        description: "Get scrambles for a wide variety of events",
+        description: "Generate random scrambles for a variety of WCA and non-WCA events",
         options: [
             {
                 name: "event",

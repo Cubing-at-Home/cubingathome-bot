@@ -30,7 +30,7 @@ function execute(message, args) {
 const slash = {
     commandData: {
         name: 'burger',
-        description: 'Burger?'
+        description: 'Can you get the burger?'
     },
     async slashFunc(interaction) {
         const burger = await callBurger(interaction.member.user.id, interaction.guild_id);
