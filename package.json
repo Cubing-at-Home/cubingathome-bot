@@ -8,7 +8,7 @@
     "update": "git push origin main && git push heroku main"
   },
   "author": "louismeunier",
-  "license": "GPL",
+  "license": "GPL", 
   "dependencies": {
     "axios": "^0.21.1",
     "canvas": "^2.6.1",
@@ -19,6 +19,6 @@
     "firebase-admin": "^9.5.0"
   },
   "engines": {
-    "node": "16.2.0"
+    "node": "14.0.0"
   }
 }
