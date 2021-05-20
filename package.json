@@ -4,7 +4,7 @@
   "description": "A Discord bot made for the Cubing at Home server.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "update": "git push origin main && git push heroku main"
   },
   "author": "louismeunier",
@@ -12,13 +12,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "canvas": "^2.6.1",
-    "discord.js": "^12.5.1",
+    "discord.js": "latest",
     "discord.js-pagination": "^1.0.3",
     "dotenv": "^8.2.0",
     "firebase": "^8.2.8",
     "firebase-admin": "^9.5.0"
   },
   "engines": {
-    "node": "12.10.0"
+    "node": "16.2.0"
   }
 }
