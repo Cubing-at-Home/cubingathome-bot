@@ -56,16 +56,14 @@ function average(args) {
     ? args[0].split(",").map(t => t = t.trim()).filter(t=> secondsReg.test(t) || minutesReg.test(t))
     : (args.length == 3 || args.length == 5) ? args.filter(t => secondsReg.test(t) || minutesReg.test(t)) : null;
     if (!timeArray && timeArray.length!==3 && timeArray.length!==5) {
-        const err = new Error("Make sure you are using valid times of *mm:ss.mm(m)* or *ss.mm*")
-        throw err;
+        throw new Error("Make sure you are using valid times of *mm:ss.mm(m)* or *ss.mm*!")
     }
     if (timeArray.length == 5) {
         return ao5(timeArray)
     } else if (timeArray.length == 3) {
         return mo3(timeArray)
     } else {
-        const err = new Error("avg only supports ao5 and mo3");
-        throw err;
+        throw new Error("**avg** only supports ao5 and mo3!");
     }
 }
 
@@ -115,7 +113,11 @@ const slash = {
         }]
     },
     async slashFunc(interaction) {
-        return {'content': average(interaction.data.options.map(e => e.value))};
+        try {
+            return {'content': average(interaction.data.options.map(e => e.value))};
+        } catch (err) {
+            return { content: err.message }
+        }
     }
 }
 module.exports = {
