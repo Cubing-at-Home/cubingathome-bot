@@ -38,13 +38,15 @@ const slash = {
         }]
     },
     async slashFunc(interaction) {
-        console.log(interaction.data.options[0].value)
         try {
-            const response = await getWCAProfile([interaction.data.options[0].value]);
-            return { embeds: [response] };
+            const response = await getWCAProfile([interaction.data.options[0].value])
+            return {
+                embeds: [response]
+            }
         } catch(err) {
-            console.log(err)
-            return { content:"fuck" };
+            return {
+                content: err
+            }
         }
     }
 }
