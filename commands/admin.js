@@ -24,7 +24,7 @@ function execute(message, args) {
                                 Authorization: `Bot ${message.client.token}`
                             }
                         })
-                            .then(res => message.channel.send(`Delete /${commandName}`))
+                            .then(res => message.channel.send(`Deleted /${commandName}`))
                             .catch(err => message.channel.send("Failed to delete the command!"))
                     } else {
                         message.channel.send("Command not found!")
