@@ -8,11 +8,11 @@
     "update": "git push origin main && git push heroku main"
   },
   "author": "louismeunier",
-  "license": "GPL", 
+  "license": "GPL",
   "dependencies": {
     "axios": "^0.21.1",
     "canvas": "^2.6.1",
-    "discord.js": "latest",
+    "discord.js": "^12.5.1",
     "discord.js-pagination": "^1.0.3",
     "dotenv": "^8.2.0",
     "firebase": "^8.2.8",
