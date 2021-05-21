@@ -28,15 +28,18 @@ client.once("ready", async () => {
 
     //guild-only slash commands
     //will maybe add global commands later?
+    const slashes = ["790303317003206675","703359739584577576"];
     for (const file of commandFiles) {
         const command = require(`./commands/${file}`);
         if (command.slash) {
-            console.log(`Loading in /${command.name}...`)
-            client.api.applications(client.user.id).guilds("703359739584577576").commands.post(
-                {
-                    data: command.slash.commandData
-                }
-            )
+            for (const guildID in slashes) {
+                console.log(`Loading in /${command.name}...`)
+                client.api.applications(client.user.id).guilds(guildID).commands.post(
+                    {
+                        data: command.slash.commandData
+                    }
+                )
+            }
         }
     }
     
