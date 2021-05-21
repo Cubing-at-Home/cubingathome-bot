@@ -1,5 +1,5 @@
 # Cubing At Home Discord Bot
-[![Discord](https://img.shields.io/discord/690084292323311720.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/FWcJFNFMAn)
+[<h1>INVITE</h1>](https://discord.com/api/oauth2/authorize?client_id=809433538851897404&permissions=2148002880&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=bot%20applications.commands)
 
 This is the custom bot originally created for the Cubing@Home Discord server, but constantly expanding with more cubing-related features.
 
