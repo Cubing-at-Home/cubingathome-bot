@@ -32,7 +32,7 @@ client.once("ready", async () => {
         const command = require(`./commands/${file}`);
         if (command.slash) {
             console.log(`Loading in /${command.name}...`)
-            client.api.applications(client.user.id).guilds("790303317003206675").commands.post(
+            client.api.applications(client.user.id).guilds("703359739584577576").commands.post(
                 {
                     data: command.slash.commandData
                 }
@@ -63,6 +63,31 @@ client.ws.on("INTERACTION_CREATE", async interaction => {
     const command = client.commands.get(name)
                     || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
     if (!command.slash) return;
+    //have cooldowns apply to interactions as well
+    if (!cooldowns.has(command.name)) {
+        cooldowns.set(command.name, new Discord.Collection())
+    }
+
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmt = (command.cooldown || 2) * 1000;
+
+    if (timestamps.has(interaction.member.user.id)) {
+        const expirationTime = timestamps.get(interaction.member.user.id) + cooldownAmt;
+        if (now < expirationTime) {
+            const timeLeft = (expirationTime - now)/1000;
+            await client.api.interactions(interaction.id, interaction.token).callback.post({data: {
+                type: 4,
+                data: {
+                    content: `Please wait **${timeLeft.toFixed(1)}** seconds to use **/${command.name}**`
+                }
+              }})
+            return;
+        }
+    }
+    timestamps.set(interaction.member.user.id, now);
+    setTimeout(() => timestamps.delete(interaction.member.user.id), cooldownAmt);
+
     const response = await command.slash.slashFunc(interaction);
 
     await client.api.interactions(interaction.id, interaction.token).callback.post({data: {
