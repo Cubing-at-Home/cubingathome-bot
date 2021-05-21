@@ -6,7 +6,7 @@ This is the custom bot originally created for the Cubing@Home Discord server, bu
 
 ## Commands
 
-Please see [the docs](/docs/README.md) for command documentation.
+Please see [the docs](https://cubing-at-home.github.io/cubingathome-bot/) for command documentation.
 ## Bug Reporting/Feature Request
 Please open an issue in this repo using [bug_report.md](.github/ISSUE_TEMPLATE/bug_report.md) and clearly describe the issue. To request a new feature, please use [feature_request.md](.github/ISSUE_TEMPLATE/feature_request.md).
 

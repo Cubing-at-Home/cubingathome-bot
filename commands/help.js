@@ -20,7 +20,7 @@ function help() {
     .setFooter("cubing@home", "https://cubingathome.com/logo.png","https://cubingathome.com")
     .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/1200px-Blue_question_mark_icon.svg.png")
     .addFields(
-        {name: "Commands:", value: "https://github.com/Cubing-at-Home/cubingathome-bot/tree/main/docs/README.md"}
+        {name: "Commands:", value: "https://cubing-at-home.github.io/cubingathome-bot/"}
     )
     return helpEmbed;
 }
