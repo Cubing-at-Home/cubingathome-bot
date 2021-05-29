@@ -35,7 +35,7 @@ const activityKey = {
 async function addRoundListener(client) {
     const CHANNEL_ID = process.env.NODE_ENV === "production" ? "691137105656807544" : "810760277850980365";
     const CHANNEL = client.channels.cache.get(CHANNEL_ID);
-    const COMP_ID = "cah2.4";
+    const COMP_ID = "cah2.3";
     const initialData = await cahDB.collection("competitions").doc(COMP_ID).get();
     let previousRounds = initialData.data().rounds;
     //console.log(previousRounds)

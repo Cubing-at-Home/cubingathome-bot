@@ -24,7 +24,7 @@ for (const file of commandFiles) {
 //on
 client.once("ready", async () => {
     //init the round listener
-    initListener(client);
+    //initListener(client);
 
     //guild-only slash commands
     //will maybe add global commands later?
