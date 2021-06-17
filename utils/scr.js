@@ -73,6 +73,10 @@ function _fto() {
     return megaScrambler.getFTOScramble(50);
 }
 
+function _masterPyra() {
+    return util_scramble.getMasterPyraminxScramble(42);
+}
+
 module.exports = {
     333: _333,
     222: _222,
@@ -103,5 +107,6 @@ module.exports = {
     pll: scramble_333.getPLLScramble,
     bld: scramble_333.get3BLDScramble,
     fto: _fto,
-    kilo: generateKilo
+    kilo: generateKilo,
+    masterPyra: _masterPyra
 }

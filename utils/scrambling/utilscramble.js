@@ -8,6 +8,24 @@ var util_scramble = (function(rn, rndEl, mega) {
 	var seq = [];
 	var p = [];
 
+	function adjScramble(faces, adj, len, suffixes) {
+		if (suffixes == undefined) {
+			suffixes = [""];
+		}
+		var used = 0;
+		var face;
+		var ret = [];
+		for (var j = 0; j < len; j++) {
+			do {
+				face = rn(faces.length);
+			} while ((used >> face) & 1);
+			ret.push(faces[face] + rndEl(suffixes));
+			used &= ~adj[face];
+			used |= 1 << face;
+		}
+		return ret.join(" ");
+	}
+
 	function helicubescramble(type, len) {
 		var faces = ["UF", "UR", "UB", "UL", "FR", "BR", "BL", "FL", "DF", "DR", "DB", "DL"];
 		// adjacency table
@@ -351,10 +369,28 @@ var util_scramble = (function(rn, rndEl, mega) {
 		}
 		return ret;
 	}
+	function addPyrTips(scramble, moveLen) {
+		var cnt = 0;
+		var rnd = [];
+		for (var i = 0; i < 4; i++) {
+			rnd[i] = rn(3);
+			if (rnd[i] > 0) {
+				rnd[i] = "ulrb".charAt(i) + ["! ", "' "][rnd[i] - 1];
+				cnt++;
+			} else {
+				rnd[i] = "";
+			}
+		}
+		return scramble.substr(0, scramble.length - moveLen * cnt) + " " + rnd.join("");
+	}
 
 	function utilscramble(type, len) {
 		var ret = "";
 		switch (type) {
+			case "mpyr": // Master Pyraminx
+				ret = adjScramble(["U!", "L!", "R!", "B!", "Uw", "Lw", "Rw", "Bw"], [0xe0, 0xd0, 0xb0, 0x70, 0xee, 0xdd, 0xbb, 0x77], len, ["!", "'"]);
+				console.log(ret)
+				return addPyrTips(ret, 4).replace(/!/g, "");
 			case "15p": // 15 puzzle
 				return do15puzzle(false, len);
 			case "15pm": // 15 puzzle, mirrored
@@ -473,7 +509,9 @@ var util_scramble = (function(rn, rndEl, mega) {
 	function getSquareOneTwistMetricScramble(n){
 			return sq1_scramble(0, n);
 	}
-
+	function getMasterPyraminxScramble(n) {
+		return utilscramble("mpyr", n);
+	}
 	return {
 		getMegaminxWCAScramble: getMegaminxWCAScramble,
 		getMegaminxCarrotScramble: getMegaminxCarrotScramble,
@@ -485,6 +523,7 @@ var util_scramble = (function(rn, rndEl, mega) {
 		getClockJaapScramble: getClockJaapScramble,
 		getClockConciseScramble: getClockConciseScramble,
 		getClockEfficientPinOrderScramble: getClockEfficientPinOrderScramble,
+		getMasterPyraminxScramble: getMasterPyraminxScramble
 	}
 
 
