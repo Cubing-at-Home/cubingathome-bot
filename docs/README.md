@@ -51,6 +51,7 @@ The type of scramble. Can be any of the following:
 - **ell**
 - **cmll**
 - **pll**
+- **mpyr**
 
 ### `$num`
 
